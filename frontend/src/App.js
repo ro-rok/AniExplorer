@@ -41,6 +41,12 @@ function App() {
 
   return (
     <div id='anime-recommender'>
+      <div id="background">
+        <div id="bg-screen">
+
+        </div>
+        <img src="https://wallpapercave.com/wp/wp6231868.jpg" />
+      </div>
       <h1 id="page-title">Anime Recommendation System</h1>
       <input
         type="text"
@@ -89,7 +95,7 @@ function SearchedAnime({ animeDetails }) {
       <p>{animeDetails.synopsis}</p>
       {
         animeDetails.background ?
-          <div id="background">
+          <div id="background-data">
             <h4 className='label'>Background</h4>
             <p>{animeDetails.background}</p> </div> : ''
       }
