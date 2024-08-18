@@ -1,0 +1,226 @@
+p{
+    font-weight: 200;
+}
+
+h1{
+    font-weight: 400;
+}
+
+#root {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: auto;
+}
+
+#anime-recommender{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    padding: 20px;
+    justify-content: center;
+}
+
+#anime-recommender #anime-input{
+    width: 30%;
+    padding: 20px 20px;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: transparent;
+    color: white;
+    font-size: 24px;
+    outline: none;
+}
+
+input{
+    outline: none;
+}
+
+input:focus{
+    outline: none;
+}
+
+#anime-recommender #button{
+    position: relative;
+    border: 1px solid white;
+    margin: 50px;
+    padding: 10px 50px;
+    border-radius: 10000px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: padding 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#anime-recommender #button #button-bg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    transition: top 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+#anime-recommender #button #button-bg p{
+    font-size: 18px;
+}
+
+#anime-recommender #button p{
+    position: relative;
+    font-size: 16px;
+    pointer-events: none;
+}
+
+#anime-recommender #button:hover{
+    padding: 12px 5em;
+}
+
+#anime-recommender #button:hover #button-bg{
+    top: 0;
+}
+
+#page-title{
+    font-size: 5em;
+    font-weight: 200;
+}
+
+
+#anime-recom-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#anime-recom {
+    position: relative;
+    width: 100%;
+    row-gap: 50px;
+    column-gap: 50px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 25% 25% 25%;
+}
+
+#anime-wrapper {}
+
+#anime-details {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#anime-details #image-wrapper {
+    position: relative;
+    height: 50vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+#anime-details #image-wrapper img {
+    position: absolute;
+    top: 0;
+    border-radius: 20px;
+    width: 100%;
+}
+
+#anime-headings{
+    margin: 20px;
+    width: 100%;
+}
+
+#anime-details #anime-headings #anime-title{
+    margin: 0;
+    font-size: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%; /* some width */
+}
+
+#anime-details h5{
+    margin: 0;
+}
+
+#searched-anime-wrapper{
+    position: relative;
+    display: flex;
+    width: 80vw;
+    height: auto;
+    padding: 3em;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+#searched-anime-details{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#searched-anime-details #anime-details{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex: 1;
+}
+
+#searched-anime-details #anime-details p{
+    margin: 0;
+    font-size: 14px;
+}
+
+#searched-anime-details #anime-details #genres{
+    display: flex
+}
+
+#searched-anime-details #image-wrapper{
+    position: relative;
+    flex: 0.5;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+    margin-right: 40px;
+    border: 2px solid white;
+}
+
+#searched-anime-details #image-wrapper img{
+    top: 0;
+    bottom: 0;
+    position: relative;
+    width: 100%;
+}
+
+#footer{
+    display: flex;
+}
+
+#footer div{
+    margin-right: 20px;
+}
+
+.label{
+    margin:10px 0 5px 0;
+    width: 100%;
+    font-size: 14px;
+    border-bottom: 0.1px solid rgba(255, 255, 255, 0.4);
+}
