@@ -1,4 +1,3 @@
-```markdown
 # Anime Recommendation System
 
 This project is an Anime Recommendation System that allows users to find anime similar to their favorite ones. The application is built using Flask for the backend and React for the frontend. It utilizes a pre-trained model to recommend similar animes and retrieves anime details from the MyAnimeList (MAL) API.
@@ -182,6 +181,3 @@ anime_recommender/
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-```
-
----
