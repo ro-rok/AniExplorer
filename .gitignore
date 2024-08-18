@@ -28,7 +28,7 @@ yarn-error.log*
 
 # MacOS files
 .DS_Store
-/trained_models
+/not_for_git
 # Windows files
 Thumbs.db
 
