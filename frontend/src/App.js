@@ -6,11 +6,25 @@ function App() {
   const [similarAnimes, setSimilarAnimes] = useState([]);
   const [searchedAnime, setSearchedAnime] = useState([]);
   const [pageLoad, setPageLoading] = useState()
+  const [mediaType, setMediaType] = useState('tv');
 
 
   useEffect(() => {
     console.log("page loading");
   }, [pageLoad])
+
+  const handleRadioClick = async (e) => {
+    setMediaType(e.target.id);
+
+    var radios = e.target.offsetParent.querySelectorAll('.radio');
+    console.log(radios);
+    radios.forEach(radio => {
+      radio.classList.remove('selected');
+    });
+
+    e.target.classList.add('selected');
+
+  }
 
   const handleSearch = async () => {
     setPageLoading(true)
@@ -20,7 +34,7 @@ function App() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ anime_name: animeName }),
+        body: JSON.stringify({ anime_name: animeName, media_type: mediaType }),
       });
 
       const data = await response.json();
@@ -45,9 +59,10 @@ function App() {
         <div id="bg-screen">
 
         </div>
-        <img src="https://wallpapercave.com/wp/wp6231868.jpg" />
+        <img src="https://images5.alphacoders.com/118/1184726.jpg" />
       </div>
-      <h1 id="page-title">Anime Recommendation System</h1>
+      <h1 id="page-title">AnieXplorer</h1>
+      <h1>Discover Your Next Anime Adventure</h1>
       <input
         type="text"
         value={animeName}
@@ -55,6 +70,20 @@ function App() {
         onChange={(e) => setAnimeName(e.target.value)}
         placeholder="Enter anime name"
       />
+      <div id="media-type">
+        {/* <div onClick={handleRadioClick} id="tv" className='radio selected'>
+          <h1>TV</h1>
+        </div> */}
+        <button id='tv' className='radio selected' onClick={handleRadioClick}>
+          <span>TV</span>
+        </button>
+        <button id='movie' className='radio' onClick={handleRadioClick}>
+          <span>Movie</span>
+        </button>
+        {/* <div onClick={handleRadioClick} id="movie" className='radio'>
+          <h1>Movie</h1>
+        </div> */}
+      </div>
       {pageLoad ? <p>Model is running</p> :
         <div id="button" onClick={handleSearch}>
           <p>Find Similar Animes</p>
@@ -121,21 +150,73 @@ function SearchedAnime({ animeDetails }) {
           <h4 className='label'>Rating </h4>
           <p>{animeDetails.rating}</p>
         </div>
+        <div>
+          <h4 className='label'>Media Type </h4>
+          <p>{animeDetails.media_type.charAt(0).toUpperCase() + animeDetails.media_type.slice(1)}</p>
+        </div>
       </div>
     </div>
   </div>
 }
 
 function AnimeChild({ animeDetails, sim }) {
-  return <div id="anime-details">
+  console.log(animeDetails)
+  return <div id="sug-anime-wrapper">
     <div id="anime-headings">
       <h2 id="anime-title">{animeDetails.title}</h2>
-      <h5>similarity percent - {(sim * 100).toFixed(2)}%</h5>
+      <h5>Similarity : {(sim * 100).toFixed(2)}%</h5>
     </div>
-    <div id="image-wrapper">
-      <img src={animeDetails.main_picture.medium} />
+    <div id="anime-details">
+      <div id="image-wrapper">
+        <img src={animeDetails.main_picture.medium} />
+      </div>
+
+      <div id="anime-data">
+        <div id="anime-data-wrapper">
+          <div id="alt-titles">
+            {animeDetails['alternative_titles']['en'] ? <h3>{animeDetails['alternative_titles']['en']}</h3> : <h3>{animeDetails.title}</h3>}
+          </div>
+          <div id="synopsis">
+            <h4 className='label'>Synopsis</h4>
+            <p>{animeDetails.synopsis}</p>
+          </div>
+          <div id="genres">
+            <h4 className='label'>Genres</h4>
+            <span>
+              {animeDetails.genres.map((genre, index) => {
+                return <p key={index}>{genre.name}&nbsp;</p>
+              })}
+            </span>
+          </div>
+          <div id="extra-data">
+            <div>
+              <h4 className='label'>Rating</h4>
+              <p>{animeDetails.mean}</p>
+            </div>
+            <div>
+              <h4 className='label'>Popularity</h4>
+              <p>{animeDetails.popularity}</p>
+            </div>
+            <div>
+              <h4 className='label'>Rank</h4>
+              <p>{animeDetails.rank}</p>
+            </div>
+            <div>
+              <h4 className='label'>Media Type</h4>
+              <p>{animeDetails.media_type.charAt(0).toUpperCase() + animeDetails.media_type.slice(1)}</p>
+            </div>
+
+          </div>
+          <div id="link">
+            <a target='blank' href={`https://myanimelist.net/anime/${animeDetails['id']}`}>Read more on My Anime List</a>
+          </div>
+        </div>
+
+      </div>
     </div>
+
   </div>
+
 }
 
 export default App;

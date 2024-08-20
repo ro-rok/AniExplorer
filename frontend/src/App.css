@@ -1,5 +1,5 @@
 p{
-    font-weight: 200;
+    font-weight: 300;
 }
 
 h1{
@@ -16,6 +16,7 @@ h1{
 #anime-recommender{
     position: relative;
     display: flex;
+    height: auto;
     flex-direction: column;
     align-items: center;
     width: auto;
@@ -37,13 +38,13 @@ h1{
     z-index: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.9;
-    background-color: black;
+    opacity: 0.75;
+    background-color: rgba(0, 0, 0, 1);
 }
 
 #anime-recommender #background img{
     height: 100%;
-    z-index:-2
+    z-index:-2;
 }
 
 
@@ -52,18 +53,21 @@ h1{
     padding: 20px 20px;
     font-size: 20px;
     border-radius: 10px;
-    background-color: transparent;
-    color: white;
+    background-color: white;
+    transform: scale(1);
+    color: black;
     font-size: 24px;
     outline: none;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-input{
-    outline: none;
+#anime-recommender #anime-input:focus{
+    transform: scale(1.1)
 }
 
 input:focus{
     outline: none;
+    width: 50%;
 }
 
 #anime-recommender #button{
@@ -112,6 +116,7 @@ input:focus{
 #page-title{
     font-size: 5em;
     font-weight: 200;
+    margin: 5px;
 }
 
 
@@ -126,6 +131,7 @@ input:focus{
 #anime-recom {
     position: relative;
     width: 100%;
+    height: 100%;
     row-gap: 50px;
     column-gap: 50px;
     display: grid;
@@ -134,15 +140,98 @@ input:focus{
     grid-template-columns: 25% 25% 25%;
 }
 
-#anime-wrapper {}
+#anime-wrapper {
+    position: relative;
+}
 
-#anime-details {
+#anime-wrapper #anime-details {
+    position: relative;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
+    border-radius: 20px;
 }
+
+#anime-wrapper #anime-details #anime-data{
+    opacity: 0.9;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    transform: translate(0, 100%);
+    transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#anime-wrapper #anime-details #anime-data #anime-data-wrapper{
+    padding: 30px;
+}
+
+#anime-wrapper #anime-details:hover #anime-data{
+    transform: translate(0%, 0%);
+}
+
+#anime-wrapper #anime-details:hover #anime-data p{
+    color: black;
+    font-size: 13px;
+    max-height: 20vh;
+    height: auto;
+    overflow: hidden;
+    margin: 0;
+
+}
+#anime-wrapper #anime-details:hover #anime-data h3{
+    color: red;
+    margin: 10px 0;
+    font-size: 18px;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+#anime-wrapper #anime-details:hover #anime-data h4{
+    margin: 10px 0;
+    color: black;
+    border-bottom: 2px solid red;
+}
+
+#anime-wrapper #anime-details:hover #anime-data #genres{
+    margin: 10px 0;
+}
+
+#anime-wrapper #anime-details:hover #anime-data #genres span{
+    display: flex;
+    height: auto;
+}
+
+#anime-wrapper #anime-details:hover #anime-data #genres span p{
+    height: auto;
+}
+
+#anime-wrapper #anime-details:hover #anime-data #extra-data{
+    display: flex;
+}
+
+#anime-wrapper #anime-details:hover #anime-data #extra-data div{
+    margin-right: 20px;
+}
+
+#sug-anime-wrapper #anime-data #link{
+    margin: 20px 0 0 0;
+    font-size: 14px;
+}
+
+#sug-anime-wrapper #anime-data #link a{
+    color: black;
+
+}
+
+#sug-anime-wrapper #anime-data #link a:visited{
+    color: red;
+}
+
+
 
 #anime-details #image-wrapper {
     position: relative;
@@ -163,11 +252,15 @@ input:focus{
 }
 
 #anime-headings{
-    margin: 20px;
     width: 100%;
+    margin: 20px 0;
 }
 
-#anime-details #anime-headings #anime-title{
+#anime-headings h5{
+    margin: 0;
+}
+
+#sug-anime-wrapper #anime-headings #anime-title{
     margin: 0;
     font-size: 18px;
     text-overflow: ellipsis;
@@ -202,7 +295,10 @@ input:focus{
 }
 
 #searched-anime-details #anime-details{
+    overflow: hidden;
     display: flex;
+    position: relative;
+    flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     flex: 1;
@@ -243,9 +339,98 @@ input:focus{
     margin-right: 20px;
 }
 
+#anime-data{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 .label{
     margin:10px 0 5px 0;
     width: 100%;
     font-size: 14px;
     border-bottom: 0.1px solid rgba(255, 255, 255, 0.4);
 }
+
+#anime-recommender #media-type{
+    margin: 20px;
+    display: flex;
+    max-width: 25%;
+    width: 25%;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#anime-recommender #media-type .radio{
+    margin: 0 20px;
+    flex: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#anime-recommender #media-type .radio:hover{
+
+}
+
+#anime-recommender #media-type .radio h1{
+    pointer-events: none;
+}
+
+button {
+    outline: none;
+    cursor: pointer;
+    border: none;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    position: relative;
+    display: inline-block;
+    border-radius: 500px;
+    padding: 20px 50px;
+    overflow: hidden;
+    background: lightcoral;
+    color: black;
+   }
+   
+   button span {
+    font-size: 20px;
+    font-weight: 500;
+    position: relative;
+    z-index: 10;
+    pointer-events: none;
+    transition: color 0.4s;
+   }
+
+   
+   button::before,
+   button::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+   }
+   
+   button::before {
+    content: "";
+    background: white;
+    width: 120%;
+    left: -10%;
+    transform: skew(30deg);
+    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+   }
+   
+   button:hover::before {
+    transform: translate3d(100%, 0, 0);
+   }
+
+   button.selected::before{
+    transform: translate3d(100%, 0, 0);
+   }
+   
