@@ -1,6 +1,6 @@
 # Anime Recommendation System
 
-This project is an Anime Recommendation System that allows users to find anime similar to their favorite ones. The application is built using Flask for the backend and React for the frontend. It utilizes a pre-trained model to recommend similar animes and retrieves anime details from the MyAnimeList (MAL) API.
+This project is an Anime Recommendation System that allows users to find anime that is similar to their favorite ones. The application uses Flask for the backend and React for the frontend. It utilizes a pre-trained model to recommend similar animes and retrieves anime details from the MyAnimeList (MAL) API.
 
 ## Table of Contents
 
@@ -51,19 +51,15 @@ This project is an Anime Recommendation System that allows users to find anime s
    pip install -r requirements.txt
    ```
 
-4. **Download and Place the Pre-trained Model:**
-
-   - Download the model (`epoch_25.h5`) and place it in the `trained_models` directory.
-
-5. **Load Anime ID Weights:**
+4. **Load Anime ID Weights:**
 
    - Place the `id_weights.pkl` file in the root directory of the project.
 
-6. **Set Up MyAnimeList API Client ID:**
+5. **Set Up MyAnimeList API Client ID:**
 
    - Replace `client_id` in the Flask app with your MAL API client ID.
 
-7. **Run the Flask Server:**
+6. **Run the Flask Server:**
 
    ```bash
    python app.py
@@ -164,9 +160,7 @@ Finds similar animes based on the name of the anime provided.
 anime_recommender/
 │
 ├── app.py                    # Flask application
-├── id_weights.pkl            # Serialized anime ID weights
-├── trained_models/           # Directory containing the trained TensorFlow model
-│   └── epoch_25.h5           # Pre-trained model file
+├── id_weights.pkl            # Serialized anime ID weights after getting trained through TensorFlow model
 ├── anime_data/               # Directory containing CSV files with anime data (optional)
 ├── frontend/                 # React application directory
 │   ├── src/
