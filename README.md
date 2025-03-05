@@ -2,7 +2,7 @@
 
 This project is an Anime Recommendation System that allows users to find anime that is similar to their favorite ones. The application uses Flask for the backend and React for the frontend. It utilizes a pre-trained model to recommend similar animes and retrieves anime details from the MyAnimeList (MAL) API.
 
--[Website] (http://52.201.211.120/)
+-[Website](http://52.201.211.120/)
 
 ## Table of Contents
 
