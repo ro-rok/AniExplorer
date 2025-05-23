@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Your MAL API client ID
-client_id = 'e57008af22cb2ae7d66b2147334d9ba9'
+client_id = 'API_ID'
 
 headers = {
     'X-MAL-CLIENT-ID': client_id
