@@ -16,14 +16,6 @@ headers = {
     'X-MAL-CLIENT-ID': client_id
 }
 
-# # Load the pre-trained model
-# model = tf.keras.models.load_model('./not_for_git/trained_models/epoch_25.h5')
-
-# def extract_weights(name, model):
-#     weight_layer = model.get_layer(name)
-#     weights = weight_layer.get_weights()[0]
-#     weights = weights / np.linalg.norm(weights, axis=1).reshape((-1, 1))
-#     return weights
 
 # Load mappings
 with open('./id_weights.pkl', 'rb') as file:
