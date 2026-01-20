@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
+import Lenis from 'lenis'
 
 function App() {
   const [animeName, setAnimeName] = useState('')
@@ -8,11 +9,36 @@ function App() {
   const [mediaType, setMediaType] = useState('tv')
 
   useEffect(() => {
+    // Initialize Lenis for smooth scrolling
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    })
+
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
+
     // Wake up the backend server
     fetch('http://127.0.0.1:5000/')
       .catch(() => {
         // Silently handle the wake-up call
       })
+
+    // Cleanup function to destroy Lenis instance
+    return () => {
+      lenis.destroy()
+    }
   }, [])
 
   const handleSearch = async () => {
@@ -73,7 +99,7 @@ function App() {
                   type="text"
                   value={animeName}
                   onChange={(e) => setAnimeName(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                   className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="e.g., Attack on Titan, Naruto, One Piece..."
                 />
