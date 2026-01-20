@@ -4,6 +4,8 @@ import Lenis from 'lenis'
 import SearchInput from './components/search/SearchInput'
 import MediaTypeToggle from './components/search/MediaTypeToggle'
 import SearchButton from './components/search/SearchButton'
+import SearchedAnime from './components/results/SearchedAnime'
+import ResultsGrid from './components/results/ResultsGrid'
 
 function App() {
   const [animeName, setAnimeName] = useState('')
@@ -119,68 +121,8 @@ function App() {
         </div>
 
         {/* Results Section */}
-        {searchedAnime && (
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-center">Search Result</h2>
-            <div className="max-w-md mx-auto bg-slate-800 rounded-lg overflow-hidden shadow-xl">
-              <img
-                src={searchedAnime.anime_details.main_picture?.medium}
-                alt={searchedAnime.anime_details.title}
-                className="w-full h-64 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold mb-2">{searchedAnime.anime_details.title}</h3>
-                <p className="text-slate-300 text-sm mb-2">
-                  Rating: {searchedAnime.anime_details.mean || 'N/A'}/10
-                </p>
-                <a
-                  href={`https://myanimelist.net/anime/${searchedAnime.anime_details.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm transition-colors"
-                >
-                  View on MyAnimeList
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {similarAnimes.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-bold mb-6 text-center">Similar Anime</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {similarAnimes.map((anime) => (
-                <div key={anime.anime_details.id} className="bg-slate-800 rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-shadow">
-                  <img
-                    src={anime.anime_details.main_picture?.medium}
-                    alt={anime.anime_details.title}
-                    className="w-full h-64 object-cover"
-                  />
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold mb-2 line-clamp-2">{anime.anime_details.title}</h3>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-green-400 font-medium">
-                        {(anime.similarity * 100).toFixed(1)}% match
-                      </span>
-                      <span className="text-slate-300 text-sm">
-                        {anime.anime_details.mean || 'N/A'}/10
-                      </span>
-                    </div>
-                    <a
-                      href={`https://myanimelist.net/anime/${anime.anime_details.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm transition-colors"
-                    >
-                      View Details
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        <SearchedAnime searchedAnime={searchedAnime} />
+        <ResultsGrid similarAnimes={similarAnimes} />
       </main>
     </div>
   )
