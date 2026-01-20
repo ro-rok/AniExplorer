@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import OptimizedImage from '../common/OptimizedImage'
 
 const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
-  const [imageLoaded, setImageLoaded] = useState(false)
-  const [imageError, setImageError] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
@@ -35,23 +34,6 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
         ease: [0.25, 0.46, 0.45, 0.94]
       }
     }
-  }
-
-  const imageVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { duration: 0.3 }
-    }
-  }
-
-  const handleImageLoad = () => {
-    setImageLoaded(true)
-  }
-
-  const handleImageError = () => {
-    setImageError(true)
-    setImageLoaded(true)
   }
 
   const toggleExpanded = () => {
@@ -90,59 +72,38 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
         className="relative overflow-hidden group"
         variants={hoverVariants}
       >
-        {/* Image container with loading state */}
-        <div className="relative w-full h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-slate-700 to-slate-800">
-          {!imageLoaded && !imageError && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="loading-spinner animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-blue-500"></div>
-            </div>
-          )}
-          
-          {imageError ? (
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-700 to-slate-800">
-              <div className="text-center text-slate-400">
-                <svg className="w-12 h-12 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-                </svg>
-                <p className="text-sm font-medium">Image not available</p>
-              </div>
-            </div>
-          ) : (
-            <motion.img
-              src={anime.anime_details.main_picture?.medium}
-              alt={anime.anime_details.title}
-              className="w-full h-48 sm:h-56 lg:h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-              variants={imageVariants}
-              initial="hidden"
-              animate={imageLoaded ? "visible" : "hidden"}
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-              loading="lazy"
-            />
-          )}
+        {/* Optimized image with loading states */}
+        <OptimizedImage
+          src={anime.anime_details.main_picture?.medium}
+          alt={anime.anime_details.title}
+          className="w-full h-48 sm:h-56 lg:h-64 transition-transform duration-500 group-hover:scale-110"
+          placeholderClassName="bg-gradient-to-br from-slate-700 to-slate-800"
+          errorClassName="bg-gradient-to-br from-slate-700 to-slate-800"
+          lazy={index > 2} // Load first 3 images immediately, lazy load the rest
+          priority={index <= 2}
+        />
 
-          {/* Enhanced similarity score badge */}
-          {similarity !== undefined && (
-            <motion.div 
-              className="absolute top-4 right-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-2 rounded-full text-sm font-bold shadow-lg backdrop-blur-sm"
-              animate={{ 
-                scale: isHovered ? 1.1 : 1,
-                rotate: isHovered ? 5 : 0
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="flex items-center space-x-1">
-                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-                <span>{(similarity * 100).toFixed(1)}%</span>
-              </div>
-            </motion.div>
-          )}
+        {/* Enhanced similarity score badge */}
+        {similarity !== undefined && (
+          <motion.div 
+            className="absolute top-4 right-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-2 rounded-full text-sm font-bold shadow-lg backdrop-blur-sm z-10"
+            animate={{ 
+              scale: isHovered ? 1.1 : 1,
+              rotate: isHovered ? 5 : 0
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center space-x-1">
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <span>{(similarity * 100).toFixed(1)}%</span>
+            </div>
+          </motion.div>
+        )}
 
-          {/* Gradient overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        </div>
+        {/* Gradient overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {/* Enhanced content section with better typography hierarchy */}
         <div className="p-6 space-y-4">

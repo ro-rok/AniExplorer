@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { useGSAP } from '../../hooks/useGSAP'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import BackgroundImage from '../common/BackgroundImage'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -9,22 +10,6 @@ const HeroSection = () => {
   // GSAP animations for hero section
   const heroRef = useGSAP((element) => {
     const tl = gsap.timeline()
-    
-    // Parallax background animation
-    gsap.fromTo(element.querySelector('.hero-bg'), 
-      { scale: 1.1 },
-      { 
-        scale: 1, 
-        duration: 2, 
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: element,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1
-        }
-      }
-    )
     
     // Staggered text animations for title and tagline
     tl.fromTo(element.querySelector('.hero-title'),
@@ -44,18 +29,6 @@ const HeroSection = () => {
       { opacity: 1, duration: 0.6, ease: "power2.out" }, "-=0.2"
     )
 
-    // Scroll-triggered animations for background parallax
-    gsap.to(element.querySelector('.hero-bg img'), {
-      yPercent: -50,
-      ease: "none",
-      scrollTrigger: {
-        trigger: element,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true
-      }
-    })
-
     // Fade out hero content on scroll
     gsap.to(element.querySelector('.hero-content'), {
       opacity: 0,
@@ -74,15 +47,14 @@ const HeroSection = () => {
 
   return (
     <section ref={heroRef} className="relative h-screen overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="hero-bg absolute inset-0">
-        <img 
-          src="/bg.jpg" 
-          alt="Anime Background"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
-      </div>
+      {/* Optimized Background Image with Overlay */}
+      <BackgroundImage
+        src="/bg.jpg"
+        alt="Anime Background"
+        className="absolute inset-0"
+        overlayClassName="bg-gradient-to-b from-black/50 via-black/30 to-black/70"
+        priority={true}
+      />
       
       {/* Hero Content */}
       <div className="hero-content relative z-10 flex items-center justify-center h-full px-4 sm:px-6 lg:px-8">

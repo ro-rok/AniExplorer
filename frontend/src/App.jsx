@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useLenis } from './hooks'
+import { preloadCriticalImages } from './utils/imagePreloader'
 import HeroSection from './components/hero/HeroSection'
 import SearchInput from './components/search/SearchInput'
 import MediaTypeToggle from './components/search/MediaTypeToggle'
@@ -19,6 +20,15 @@ function App() {
   useLenis()
 
   useEffect(() => {
+    // Preload critical images
+    preloadCriticalImages()
+      .then(() => {
+        console.log('Critical images preloaded successfully')
+      })
+      .catch((error) => {
+        console.warn('Some critical images failed to preload:', error)
+      })
+
     // Wake up the backend server
     fetch('http://127.0.0.1:5000/')
       .catch(() => {
