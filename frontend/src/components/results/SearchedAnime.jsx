@@ -62,7 +62,7 @@ const SearchedAnime = ({ searchedAnime, onClearSearch }) => {
 
   return (
     <motion.section
-      className="mb-12"
+      className="mb-8 sm:mb-12"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -70,17 +70,17 @@ const SearchedAnime = ({ searchedAnime, onClearSearch }) => {
       aria-labelledby="search-result-heading"
     >
       <motion.div
-        className="text-center mb-6"
+        className="text-center mb-4 sm:mb-6"
         variants={titleVariants}
       >
         <h2 
           id="search-result-heading"
-          className="text-2xl font-bold text-slate-100 mb-2"
+          className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-100 mb-2"
         >
           Search Result
         </h2>
         <motion.p 
-          className="text-slate-400 text-sm"
+          className="text-slate-400 text-xs sm:text-sm"
           variants={titleVariants}
         >
           Found: "{searchedAnime.title}"
@@ -89,7 +89,7 @@ const SearchedAnime = ({ searchedAnime, onClearSearch }) => {
       
       <motion.div
         variants={cardVariants}
-        className="flex justify-center mb-6"
+        className="flex justify-center mb-4 sm:mb-6 px-4"
       >
         <AnimeCard
           anime={searchedAnime}
@@ -100,11 +100,11 @@ const SearchedAnime = ({ searchedAnime, onClearSearch }) => {
 
       {/* Action buttons */}
       <motion.div
-        className="flex justify-center space-x-4"
+        className="flex justify-center"
         variants={titleVariants}
       >
         <motion.button
-          className="px-4 py-2 text-blue-400 hover:text-blue-300 text-sm underline transition-colors duration-200"
+          className="px-3 sm:px-4 py-2 text-blue-400 hover:text-blue-300 text-xs sm:text-sm underline transition-colors duration-200"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={onClearSearch}

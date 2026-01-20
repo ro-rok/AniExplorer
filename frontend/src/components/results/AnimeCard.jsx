@@ -4,19 +4,21 @@ import { useState } from 'react'
 const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
   const [imageLoaded, setImageLoaded] = useState(false)
   const [imageError, setImageError] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
 
   const cardVariants = {
     hidden: { 
       opacity: 0, 
-      y: 20,
-      scale: 0.95
+      y: 30,
+      scale: 0.9
     },
     visible: { 
       opacity: 1, 
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
         delay: index * 0.1,
         ease: [0.25, 0.46, 0.45, 0.94]
       }
@@ -25,10 +27,11 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
 
   const hoverVariants = {
     hover: {
-      y: -8,
-      scale: 1.02,
+      y: -12,
+      scale: 1.03,
+      rotateY: 2,
       transition: {
-        duration: 0.3,
+        duration: 0.4,
         ease: [0.25, 0.46, 0.45, 0.94]
       }
     }
@@ -51,29 +54,47 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
     setImageLoaded(true)
   }
 
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded)
+  }
+
+  const handleHoverStart = () => {
+    setIsHovered(true)
+  }
+
+  const handleHoverEnd = () => {
+    setIsHovered(false)
+  }
+
   const isSearchedVariant = variant === 'searched'
-  const cardWidth = isSearchedVariant ? 'max-w-md mx-auto' : ''
+  const cardWidth = isSearchedVariant ? 'max-w-sm sm:max-w-md mx-auto w-full' : 'w-full'
 
   return (
     <motion.div
-      className={`card-dark rounded-lg overflow-hidden transition-shadow duration-300 ${cardWidth}`}
+      className={`bg-gray-800 rounded-xl overflow-hidden shadow-2xl hover:shadow-3xl border border-gray-700 hover:border-gray-600 transition-all duration-500 ${cardWidth}`}
       variants={cardVariants}
       initial="hidden"
       animate="visible"
       whileHover="hover"
+      onHoverStart={handleHoverStart}
+      onHoverEnd={handleHoverEnd}
       custom={index}
       role="article"
       aria-labelledby={`anime-title-${anime.anime_details.id}`}
+      style={{
+        transformStyle: 'preserve-3d',
+        perspective: '1000px'
+      }}
     >
       <motion.div 
         className="relative overflow-hidden"
         variants={hoverVariants}
       >
         {/* Image container with loading state */}
-        <div className="relative w-full h-64 bg-slate-700">
+        <div className="relative w-full h-48 sm:h-56 lg:h-64 bg-slate-700">
           {!imageLoaded && !imageError && (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="loading-spinner animate-spin rounded-full h-8 w-8 border-b-2"></div>
+              <div className="loading-spinner animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2"></div>
             </div>
           )}
           
@@ -90,7 +111,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
             <motion.img
               src={anime.anime_details.main_picture?.medium}
               alt={anime.anime_details.title}
-              className="w-full h-64 object-cover"
+              className="w-full h-48 sm:h-56 lg:h-64 object-cover"
               variants={imageVariants}
               initial="hidden"
               animate={imageLoaded ? "visible" : "hidden"}
@@ -108,10 +129,10 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
         </div>
 
         {/* Content */}
-        <div className="p-4">
+        <div className="p-3 sm:p-4">
           <motion.h3 
             id={`anime-title-${anime.anime_details.id}`}
-            className={`font-semibold mb-2 line-clamp-2 text-slate-100 ${isSearchedVariant ? 'text-xl' : 'text-lg'}`}
+            className={`font-semibold mb-2 line-clamp-2 text-slate-100 ${isSearchedVariant ? 'text-lg sm:text-xl' : 'text-sm sm:text-base lg:text-lg'}`}
             whileHover={{ color: '#60a5fa' }}
             transition={{ duration: 0.2 }}
           >
@@ -119,10 +140,10 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
           </motion.h3>
 
           {/* Rating and similarity info */}
-          <div className="flex justify-between items-center mb-3">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 space-y-2 sm:space-y-0">
             {similarity !== undefined && (
               <motion.span 
-                className="text-green-400 font-medium text-sm bg-green-400/10 px-2 py-1 rounded-full"
+                className="text-green-400 font-medium text-xs sm:text-sm bg-green-400/10 px-2 py-1 rounded-full w-fit"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
@@ -132,8 +153,8 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
             
             <div className="flex items-center space-x-2">
               {anime.anime_details.mean && (
-                <span className="text-slate-300 text-sm flex items-center">
-                  <svg className="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <span className="text-slate-300 text-xs sm:text-sm flex items-center">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                   {anime.anime_details.mean}/10
@@ -150,7 +171,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
 
           {/* Synopsis preview for searched anime */}
           {isSearchedVariant && anime.anime_details.synopsis && (
-            <p className="text-slate-300 text-sm mb-3 line-clamp-3">
+            <p className="text-slate-300 text-xs sm:text-sm mb-3 line-clamp-3">
               {anime.anime_details.synopsis}
             </p>
           )}
@@ -159,7 +180,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
           {anime.anime_details.genres && anime.anime_details.genres.length > 0 && (
             <div className="mb-3">
               <div className="flex flex-wrap gap-1">
-                {anime.anime_details.genres.slice(0, 3).map((genre) => (
+                {anime.anime_details.genres.slice(0, isSearchedVariant ? 4 : 3).map((genre) => (
                   <span
                     key={genre.id}
                     className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full"
@@ -167,9 +188,9 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
                     {genre.name}
                   </span>
                 ))}
-                {anime.anime_details.genres.length > 3 && (
+                {anime.anime_details.genres.length > (isSearchedVariant ? 4 : 3) && (
                   <span className="text-xs text-slate-400 px-2 py-1">
-                    +{anime.anime_details.genres.length - 3} more
+                    +{anime.anime_details.genres.length - (isSearchedVariant ? 4 : 3)} more
                   </span>
                 )}
               </div>
@@ -181,7 +202,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
             href={`https://myanimelist.net/anime/${anime.anime_details.id}`}
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-block btn-primary px-4 py-2 rounded text-sm transition-colors font-medium ${isSearchedVariant ? 'w-full text-center' : ''}`}
+            className={`inline-block btn-primary px-3 sm:px-4 py-2 rounded text-xs sm:text-sm transition-colors font-medium ${isSearchedVariant ? 'w-full text-center' : ''}`}
             whileHover={{ 
               scale: 1.05,
               backgroundColor: '#1d4ed8'
