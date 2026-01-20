@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
-import Lenis from 'lenis'
+import { useLenis } from './hooks'
 import SearchInput from './components/search/SearchInput'
 import MediaTypeToggle from './components/search/MediaTypeToggle'
 import SearchButton from './components/search/SearchButton'
@@ -14,37 +14,15 @@ function App() {
   const [mediaType, setMediaType] = useState('tv')
   const [isLoading, setIsLoading] = useState(false)
 
+  // Initialize smooth scrolling
+  useLenis()
+
   useEffect(() => {
-    // Initialize Lenis for smooth scrolling
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
-    })
-
-    function raf(time) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-
-    requestAnimationFrame(raf)
-
     // Wake up the backend server
     fetch('http://127.0.0.1:5000/')
       .catch(() => {
         // Silently handle the wake-up call
       })
-
-    // Cleanup function to destroy Lenis instance
-    return () => {
-      lenis.destroy()
-    }
   }, [])
 
   const handleSearch = async () => {

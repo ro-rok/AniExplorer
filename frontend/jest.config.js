@@ -7,6 +7,9 @@ export default {
   transform: {
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(lenis|gsap)/)'
+  ],
   moduleFileExtensions: ['js', 'jsx'],
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx}',
