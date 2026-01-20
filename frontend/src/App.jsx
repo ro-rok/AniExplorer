@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useLenis } from './hooks'
+import HeroSection from './components/hero/HeroSection'
 import SearchInput from './components/search/SearchInput'
 import MediaTypeToggle from './components/search/MediaTypeToggle'
 import SearchButton from './components/search/SearchButton'
@@ -64,39 +65,45 @@ function App() {
         Skip to main content
       </a>
 
-      <main id="main-content" className="container mx-auto px-4 py-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-            AniExplorer
-          </h1>
-          <p className="text-xl text-slate-300 mb-8">
-            Discover anime similar to your favorites using machine learning
-          </p>
-        </div>
+      {/* Hero Section */}
+      <HeroSection />
 
-        <div className="max-w-2xl mx-auto mb-12">
-          <div className="bg-slate-800 rounded-lg p-6 shadow-xl">
-            <div className="space-y-4">
-              <SearchInput
-                value={animeName}
-                onChange={setAnimeName}
-                onSubmit={handleSearch}
-                isLoading={isLoading}
-              />
+      <main id="main-content" className="container mx-auto px-4 py-16">
+        {/* Search Section */}
+        <section id="search-section" className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+              Find Your Next Anime
+            </h2>
+            <p className="text-xl text-slate-300 mb-8">
+              Discover anime similar to your favorites using machine learning
+            </p>
+          </div>
 
-              <MediaTypeToggle
-                selected={mediaType}
-                onChange={setMediaType}
-              />
+          <div className="max-w-2xl mx-auto mb-12">
+            <div className="bg-slate-800 rounded-lg p-6 shadow-xl">
+              <div className="space-y-4">
+                <SearchInput
+                  value={animeName}
+                  onChange={setAnimeName}
+                  onSubmit={handleSearch}
+                  isLoading={isLoading}
+                />
 
-              <SearchButton
-                onClick={handleSearch}
-                isLoading={isLoading}
-                disabled={!animeName.trim()}
-              />
+                <MediaTypeToggle
+                  selected={mediaType}
+                  onChange={setMediaType}
+                />
+
+                <SearchButton
+                  onClick={handleSearch}
+                  isLoading={isLoading}
+                  disabled={!animeName.trim()}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Results Section */}
         <SearchedAnime searchedAnime={searchedAnime} />
