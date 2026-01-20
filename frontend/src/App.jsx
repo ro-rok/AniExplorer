@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import Lenis from 'lenis'
+import SearchInput from './components/search/SearchInput'
+import MediaTypeToggle from './components/search/MediaTypeToggle'
+import SearchButton from './components/search/SearchButton'
 
 function App() {
   const [animeName, setAnimeName] = useState('')
   const [similarAnimes, setSimilarAnimes] = useState([])
   const [searchedAnime, setSearchedAnime] = useState(null)
   const [mediaType, setMediaType] = useState('tv')
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     // Initialize Lenis for smooth scrolling
@@ -44,6 +48,7 @@ function App() {
   const handleSearch = async () => {
     if (!animeName.trim()) return
 
+    setIsLoading(true)
     try {
       const response = await fetch('http://127.0.0.1:5000/find_similar', {
         method: 'POST',
@@ -65,6 +70,8 @@ function App() {
       }
     } catch (error) {
       console.error('Error:', error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -90,54 +97,23 @@ function App() {
         <div className="max-w-2xl mx-auto mb-12">
           <div className="bg-slate-800 rounded-lg p-6 shadow-xl">
             <div className="space-y-4">
-              <div>
-                <label htmlFor="anime-search" className="block text-sm font-medium text-slate-300 mb-2">
-                  Enter an anime name
-                </label>
-                <input
-                  id="anime-search"
-                  type="text"
-                  value={animeName}
-                  onChange={(e) => setAnimeName(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                  className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="e.g., Attack on Titan, Naruto, One Piece..."
-                />
-              </div>
+              <SearchInput
+                value={animeName}
+                onChange={setAnimeName}
+                onSubmit={handleSearch}
+                isLoading={isLoading}
+              />
 
-              <div className="flex items-center space-x-4">
-                <span className="text-sm font-medium text-slate-300">Media Type:</span>
-                <div className="flex space-x-2">
-                  <button
-                    onClick={() => setMediaType('tv')}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      mediaType === 'tv'
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-                    }`}
-                  >
-                    TV Series
-                  </button>
-                  <button
-                    onClick={() => setMediaType('movie')}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      mediaType === 'movie'
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-                    }`}
-                  >
-                    Movie
-                  </button>
-                </div>
-              </div>
+              <MediaTypeToggle
+                selected={mediaType}
+                onChange={setMediaType}
+              />
 
-              <button
+              <SearchButton
                 onClick={handleSearch}
+                isLoading={isLoading}
                 disabled={!animeName.trim()}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-slate-600 disabled:to-slate-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:cursor-not-allowed"
-              >
-                Find Similar Anime
-              </button>
+              />
             </div>
           </div>
         </div>
