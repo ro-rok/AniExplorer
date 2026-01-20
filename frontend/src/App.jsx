@@ -56,6 +56,13 @@ function App() {
     }
   }
 
+  const handleClearSearch = () => {
+    setAnimeName('')
+    setSimilarAnimes([])
+    setSearchedAnime(null)
+    setMediaType('tv')
+  }
+
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100">
       <Toaster position="top-right" />
@@ -68,21 +75,21 @@ function App() {
       {/* Hero Section */}
       <HeroSection />
 
-      <main id="main-content" className="container mx-auto px-4 py-16">
+      <main id="main-content" className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
         {/* Search Section */}
-        <section id="search-section" className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+        <section id="search-section" className="mb-12 lg:mb-16">
+          <div className="text-center mb-8 lg:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
               Find Your Next Anime
             </h2>
-            <p className="text-xl text-slate-300 mb-8">
+            <p className="text-lg sm:text-xl lg:text-2xl text-slate-300 mb-6 lg:mb-8 max-w-3xl mx-auto">
               Discover anime similar to your favorites using machine learning
             </p>
           </div>
 
-          <div className="max-w-2xl mx-auto mb-12">
-            <div className="bg-slate-800 rounded-lg p-6 shadow-xl">
-              <div className="space-y-4">
+          <div className="max-w-2xl mx-auto mb-8 lg:mb-12">
+            <div className="card-dark rounded-lg p-4 sm:p-6 lg:p-8">
+              <div className="space-y-4 lg:space-y-6">
                 <SearchInput
                   value={animeName}
                   onChange={setAnimeName}
@@ -106,8 +113,15 @@ function App() {
         </section>
 
         {/* Results Section */}
-        <SearchedAnime searchedAnime={searchedAnime} />
-        <ResultsGrid similarAnimes={similarAnimes} />
+        <SearchedAnime 
+          searchedAnime={searchedAnime} 
+          onClearSearch={handleClearSearch}
+        />
+        <ResultsGrid 
+          similarAnimes={similarAnimes} 
+          searchedAnime={searchedAnime}
+          onClearSearch={handleClearSearch}
+        />
       </main>
     </div>
   )

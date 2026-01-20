@@ -91,11 +91,11 @@ const SearchButton = ({ onClick, isLoading = false, disabled = false }) => {
       onClick={handleClick}
       disabled={disabled || isLoading}
       className={`
-        relative overflow-hidden w-full font-semibold py-3 px-6 rounded-lg 
+        relative overflow-hidden w-full font-semibold py-3 sm:py-4 px-4 sm:px-6 rounded-lg text-sm sm:text-base
         transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-800
         ${disabled || isLoading
-          ? 'bg-slate-600 text-slate-400 cursor-not-allowed'
-          : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white cursor-pointer'
+          ? 'btn-secondary opacity-50 cursor-not-allowed'
+          : 'btn-primary cursor-pointer'
         }
       `}
       variants={buttonVariants}
@@ -123,7 +123,7 @@ const SearchButton = ({ onClick, isLoading = false, disabled = false }) => {
           animate={isLoading ? "loading" : "idle"}
         >
           {isLoading ? (
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24">
               <circle
                 className="opacity-25"
                 cx="12"
@@ -139,7 +139,7 @@ const SearchButton = ({ onClick, isLoading = false, disabled = false }) => {
               />
             </svg>
           ) : (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           )}
@@ -151,8 +151,20 @@ const SearchButton = ({ onClick, isLoading = false, disabled = false }) => {
             opacity: isLoading ? 0.7 : 1
           }}
           transition={{ duration: 0.2 }}
+          className="hidden sm:inline"
         >
           {isLoading ? 'Searching...' : 'Find Similar Anime'}
+        </motion.span>
+        
+        <motion.span
+          initial={false}
+          animate={{
+            opacity: isLoading ? 0.7 : 1
+          }}
+          transition={{ duration: 0.2 }}
+          className="sm:hidden"
+        >
+          {isLoading ? 'Searching...' : 'Search'}
         </motion.span>
       </div>
       

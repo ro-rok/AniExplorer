@@ -56,12 +56,14 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
 
   return (
     <motion.div
-      className={`bg-slate-800 rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 ${cardWidth}`}
+      className={`card-dark rounded-lg overflow-hidden transition-shadow duration-300 ${cardWidth}`}
       variants={cardVariants}
       initial="hidden"
       animate="visible"
       whileHover="hover"
       custom={index}
+      role="article"
+      aria-labelledby={`anime-title-${anime.anime_details.id}`}
     >
       <motion.div 
         className="relative overflow-hidden"
@@ -71,7 +73,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
         <div className="relative w-full h-64 bg-slate-700">
           {!imageLoaded && !imageError && (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
+              <div className="loading-spinner animate-spin rounded-full h-8 w-8 border-b-2"></div>
             </div>
           )}
           
@@ -108,6 +110,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
         {/* Content */}
         <div className="p-4">
           <motion.h3 
+            id={`anime-title-${anime.anime_details.id}`}
             className={`font-semibold mb-2 line-clamp-2 text-slate-100 ${isSearchedVariant ? 'text-xl' : 'text-lg'}`}
             whileHover={{ color: '#60a5fa' }}
             transition={{ duration: 0.2 }}
@@ -178,13 +181,14 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
             href={`https://myanimelist.net/anime/${anime.anime_details.id}`}
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm transition-colors font-medium ${isSearchedVariant ? 'w-full text-center' : ''}`}
+            className={`inline-block btn-primary px-4 py-2 rounded text-sm transition-colors font-medium ${isSearchedVariant ? 'w-full text-center' : ''}`}
             whileHover={{ 
               scale: 1.05,
               backgroundColor: '#1d4ed8'
             }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2 }}
+            aria-label={`View ${anime.anime_details.title} on MyAnimeList`}
           >
             {isSearchedVariant ? 'View on MyAnimeList' : 'View Details'}
           </motion.a>

@@ -7,10 +7,10 @@ const MediaTypeToggle = ({ selected, onChange }) => {
   ]
 
   return (
-    <div className="flex items-center space-x-4">
-      <span className="text-sm font-medium text-slate-300">Media Type:</span>
+    <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+      <span className="text-sm sm:text-base font-medium text-slate-300">Media Type:</span>
       
-      <div className="relative flex bg-slate-700 rounded-lg p-1">
+      <div className="relative flex bg-slate-700 rounded-lg p-1 w-full sm:w-auto">
         {/* Background slider */}
         <motion.div
           className="absolute top-1 bottom-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-md"
@@ -31,8 +31,8 @@ const MediaTypeToggle = ({ selected, onChange }) => {
             key={option.value}
             onClick={() => onChange(option.value)}
             className={`
-              relative z-10 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200
-              flex items-center space-x-2 min-w-[100px] justify-center
+              relative z-10 px-3 sm:px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200
+              flex items-center justify-center space-x-1 sm:space-x-2 flex-1 sm:flex-none sm:min-w-[100px]
               ${selected === option.value
                 ? 'text-white'
                 : 'text-slate-300 hover:text-white'
@@ -58,10 +58,11 @@ const MediaTypeToggle = ({ selected, onChange }) => {
                 duration: 0.3,
                 ease: "easeOut"
               }}
+              className="text-base sm:text-lg"
             >
               {option.icon}
             </motion.span>
-            <span>{option.label}</span>
+            <span className="text-xs sm:text-sm">{option.label}</span>
           </motion.button>
         ))}
       </div>
