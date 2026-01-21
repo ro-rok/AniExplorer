@@ -56,45 +56,6 @@ const GenreNode = ({ genreGroup, weight, onChange, position }) => {
           aria-valuenow={weight}
         />
       </div>
-
-      {/* Slider styling */}
-      <style jsx>{`
-        .slider::-webkit-slider-thumb {
-          appearance: none;
-          width: 20px;
-          height: 20px;
-          background: #00D9FF;
-          cursor: pointer;
-          border-radius: 50%;
-        }
-
-        .slider::-moz-range-thumb {
-          width: 20px;
-          height: 20px;
-          background: #00D9FF;
-          cursor: pointer;
-          border-radius: 50%;
-          border: none;
-        }
-
-        .slider:focus {
-          outline: 2px solid #00D9FF;
-          outline-offset: 2px;
-        }
-
-        /* Increase touch target size on mobile */
-        @media (max-width: 640px) {
-          .slider::-webkit-slider-thumb {
-            width: 24px;
-            height: 24px;
-          }
-
-          .slider::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
-          }
-        }
-      `}</style>
     </motion.div>
   );
 };

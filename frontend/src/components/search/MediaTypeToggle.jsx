@@ -47,7 +47,7 @@ const MediaTypeToggle = ({ selected, onChange }) => {
           aria-hidden="true"
         />
         
-        {options.map((option, index) => (
+        {options.map((option) => (
           <motion.button
             key={option.value}
             onClick={() => onChange(option.value)}

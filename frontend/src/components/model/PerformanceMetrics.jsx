@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { fadeInUp, staggerContainer } from '../../utils/animations'
 
 const PerformanceMetrics = () => {
@@ -10,7 +10,7 @@ const PerformanceMetrics = () => {
     trainingTime: 0
   })
 
-  const metrics = {
+  const metrics = useMemo(() => ({
     basic: {
       accuracy: 85.2,
       mae: 0.142,
@@ -32,7 +32,7 @@ const PerformanceMetrics = () => {
       trainingTime: 89,
       description: 'Best performance with weighted genre embeddings'
     }
-  }
+  }), [])
 
   const [selectedModel, setSelectedModel] = useState('weighted')
 
@@ -62,7 +62,7 @@ const PerformanceMetrics = () => {
     }, stepDuration)
 
     return () => clearInterval(interval)
-  }, [selectedModel])
+  }, [selectedModel, metrics])
 
   const MetricCard = ({ title, value, unit, description, color, format = 'decimal' }) => {
     const formatValue = (val) => {
@@ -112,7 +112,7 @@ const PerformanceMetrics = () => {
     <div className="space-y-8">
       {/* Model Selection */}
       <div className="flex flex-wrap justify-center gap-4 mb-8">
-        {Object.entries(metrics).map(([key, model]) => (
+        {Object.entries(metrics).map(([key, _model]) => (
           <motion.button
             key={key}
             onClick={() => setSelectedModel(key)}

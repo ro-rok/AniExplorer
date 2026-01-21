@@ -123,7 +123,7 @@ const ModelShowcase = () => {
             className="text-xl text-gray-300 max-w-3xl mx-auto"
             variants={fadeInUp}
           >
-            Discover the machine learning architecture behind AniExplorer's recommendation system
+            Discover the machine learning architecture behind AniExplorer&apos;s recommendation system
           </motion.p>
         </motion.div>
         

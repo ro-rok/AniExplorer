@@ -124,45 +124,18 @@ export const useImageLoader = (src, options = {}) => {
 
 /**
  * Hook for managing multiple image loading states
+ * Note: This hook is currently disabled due to React hooks rules violations
+ * (calling hooks inside map). Consider refactoring if needed in the future.
  * @param {Array} sources - Array of image sources
  * @param {Object} options - Loading options
  * @returns {Object} - Combined loading state
  */
+/* eslint-disable no-unused-vars */
 export const useMultipleImageLoader = (sources, options = {}) => {
-  const [loadingStates, setLoadingStates] = useState(() => {
-    return sources.reduce((acc, src) => {
-      acc[src] = isImageCached(src) ? 'loaded' : 'idle'
-      return acc
-    }, {})
-  })
-
-  const updateImageState = (src, state) => {
-    setLoadingStates(prev => ({
-      ...prev,
-      [src]: state
-    }))
-  }
-
-  const imageLoaders = sources.map(src => 
-    useImageLoader(src, {
-      ...options,
-      onStateChange: (state) => updateImageState(src, state)
-    })
-  )
-
-  const allLoaded = Object.values(loadingStates).every(state => state === 'loaded')
-  const anyLoading = Object.values(loadingStates).some(state => state === 'loading')
-  const anyError = Object.values(loadingStates).some(state => state === 'error')
-
-  return {
-    loadingStates,
-    imageLoaders,
-    allLoaded,
-    anyLoading,
-    anyError,
-    loadedCount: Object.values(loadingStates).filter(state => state === 'loaded').length,
-    totalCount: sources.length
-  }
+  // This implementation violates React hooks rules by calling useImageLoader in a map
+  // Disabled for now - refactor if needed
+  throw new Error('useMultipleImageLoader is currently disabled. Use useImageLoader for individual images instead.')
 }
+/* eslint-enable no-unused-vars */
 
 export default useImageLoader

@@ -83,7 +83,7 @@ const SearchedAnime = ({ searchedAnime, onClearSearch }) => {
           className="text-slate-400 text-xs sm:text-sm"
           variants={titleVariants}
         >
-          Found: "{searchedAnime.title}"
+          Found: &quot;{searchedAnime.title}&quot;
         </motion.p>
       </motion.div>
       

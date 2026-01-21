@@ -14,7 +14,6 @@ export const useLenis = () => {
     
     // Don't initialize smooth scroll if user prefers reduced motion
     if (prefersReducedMotion) {
-      console.log('Smooth scroll disabled: user prefers reduced motion')
       return
     }
 

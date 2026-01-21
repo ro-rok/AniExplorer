@@ -164,7 +164,7 @@ const ResultsGrid = ({ similarAnimes, searchedAnime, onClearSearch }) => {
               className="text-slate-400 mb-6 sm:mb-8 text-sm sm:text-base"
               variants={suggestionVariants}
             >
-              We couldn't find any anime similar to "{searchedAnime?.title}". 
+              We couldn&apos;t find any anime similar to &quot;{searchedAnime?.title}&quot;. 
               Try searching for a different anime or check out these popular suggestions:
             </motion.p>
 
@@ -178,7 +178,7 @@ const ResultsGrid = ({ similarAnimes, searchedAnime, onClearSearch }) => {
                 className="flex flex-wrap justify-center gap-2"
                 variants={gridVariants}
               >
-                {popularSuggestions.map((suggestion, index) => (
+                {popularSuggestions.map((suggestion) => (
                   <motion.button
                     key={suggestion}
                     className="px-3 sm:px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-full text-xs sm:text-sm transition-colors duration-200 hover:text-white"
@@ -187,8 +187,7 @@ const ResultsGrid = ({ similarAnimes, searchedAnime, onClearSearch }) => {
                     whileTap={{ scale: 0.95 }}
                     onClick={() => {
                       // This would trigger a new search with the suggestion
-                      // For now, we'll just show the suggestion was clicked
-                      console.log(`Suggested search: ${suggestion}`)
+                      // Placeholder for future implementation
                     }}
                   >
                     {suggestion}
