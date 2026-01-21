@@ -1,0 +1,6 @@
+export { default as ProblemSection } from './ProblemSection'
+export { default as SolutionSection } from './SolutionSection'
+export { default as HowItWorksSection } from './HowItWorksSection'
+export { default as TechStackSection } from './TechStackSection'
+export { default as ResultsSection } from './ResultsSection'
+export { default as FooterSection } from './FooterSection'

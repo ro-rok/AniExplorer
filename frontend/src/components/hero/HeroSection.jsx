@@ -46,7 +46,7 @@ const HeroSection = () => {
   })
 
   return (
-    <section ref={heroRef} className="relative h-screen overflow-hidden">
+    <section id="hero" ref={heroRef} className="relative h-screen overflow-hidden">
       {/* Optimized Background Image with Overlay */}
       <BackgroundImage
         src="/bg.jpg"

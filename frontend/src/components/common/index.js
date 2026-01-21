@@ -1,2 +1,5 @@
 export { default as OptimizedImage } from './OptimizedImage'
 export { default as BackgroundImage } from './BackgroundImage'
+export { default as Navbar } from './Navbar'
+export { default as ErrorBoundary } from './ErrorBoundary'
+export { default as AnimationErrorBoundary } from './AnimationErrorBoundary'

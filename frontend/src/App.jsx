@@ -2,9 +2,20 @@ import { useState, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useLenis } from './hooks'
 import { preloadCriticalImages } from './utils/imagePreloader'
-import ErrorBoundary from './components/common/ErrorBoundary'
-import AnimationErrorBoundary from './components/common/AnimationErrorBoundary'
+import { 
+  ErrorBoundary, 
+  AnimationErrorBoundary, 
+  Navbar 
+} from './components/common'
 import HeroSection from './components/hero/HeroSection'
+import {
+  ProblemSection,
+  SolutionSection,
+  HowItWorksSection,
+  TechStackSection,
+  ResultsSection,
+  FooterSection
+} from './components/sections'
 import SearchInput from './components/search/SearchInput'
 import MediaTypeToggle from './components/search/MediaTypeToggle'
 import SearchButton from './components/search/SearchButton'
@@ -77,49 +88,94 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100">
+    <div className="min-h-screen bg-true-black text-slate-100">
       <Toaster position="top-right" />
       
       {/* Skip to main content link for accessibility */}
       <a 
         href="#main-content" 
-        className="skip-link"
+        className="skip-link sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent-blue focus:text-white focus:rounded"
         aria-label="Skip to main content"
       >
         Skip to main content
       </a>
 
-      {/* Hero Section with Error Boundary */}
-      <ErrorBoundary componentName="Hero Section">
-        <AnimationErrorBoundary componentName="Hero">
-          <HeroSection />
-        </AnimationErrorBoundary>
+      {/* Navigation Bar */}
+      <ErrorBoundary componentName="Navigation">
+        <Navbar />
       </ErrorBoundary>
 
-      {/* Smooth transition between hero and main content */}
-      <div className="bg-gradient-to-b from-slate-900 via-slate-900 to-gray-900 transition-all duration-1000">
-        <main id="main-content" className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-          {/* Search Section */}
-          <section 
-            id="search-section" 
-            className="mb-12 lg:mb-16 transition-all duration-500 ease-in-out"
-            aria-labelledby="search-heading"
-          >
-            <div className="text-center mb-8 lg:mb-12">
+      {/* Main Content */}
+      <main id="main-content" role="main">
+        {/* Hero Section */}
+        <ErrorBoundary componentName="Hero Section">
+          <AnimationErrorBoundary componentName="Hero">
+            <HeroSection />
+          </AnimationErrorBoundary>
+        </ErrorBoundary>
+
+        {/* Problem Section */}
+        <ErrorBoundary componentName="Problem Section">
+          <AnimationErrorBoundary componentName="Problem">
+            <ProblemSection />
+          </AnimationErrorBoundary>
+        </ErrorBoundary>
+
+        {/* Solution Section */}
+        <ErrorBoundary componentName="Solution Section">
+          <AnimationErrorBoundary componentName="Solution">
+            <SolutionSection />
+          </AnimationErrorBoundary>
+        </ErrorBoundary>
+
+        {/* How It Works Section */}
+        <ErrorBoundary componentName="How It Works Section">
+          <AnimationErrorBoundary componentName="How It Works">
+            <HowItWorksSection />
+          </AnimationErrorBoundary>
+        </ErrorBoundary>
+
+        {/* Interactive Demo Section - Placeholder for future implementation */}
+        <section 
+          id="interactive-demo" 
+          className="min-h-screen flex items-center justify-center py-20 px-4 bg-true-black"
+          aria-labelledby="interactive-demo-heading"
+        >
+          <div className="container mx-auto max-w-6xl">
+            <h2 
+              id="interactive-demo-heading"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-off-white mb-12 text-center"
+            >
+              Interactive Demo
+            </h2>
+            <p className="text-lg md:text-xl text-slate-300 text-center">
+              Interactive embedding visualization coming soon...
+            </p>
+          </div>
+        </section>
+
+        {/* Live Search Section */}
+        <section 
+          id="live-search"
+          className="min-h-screen flex items-center justify-center py-20 px-4 bg-near-black"
+          aria-labelledby="live-search-heading"
+        >
+          <div className="container mx-auto max-w-6xl w-full">
+            <div className="text-center mb-12">
               <h2 
-                id="search-heading"
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white"
+                id="live-search-heading"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-off-white mb-6"
               >
-                Find Your Next Anime
+                Try It Live
               </h2>
-              <p className="text-lg sm:text-xl lg:text-2xl text-slate-300 mb-6 lg:mb-8 max-w-3xl mx-auto">
-                Discover anime similar to your favorites using machine learning
+              <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
+                Search for any anime and discover similar recommendations powered by our ML model
               </p>
             </div>
 
-            <div className="max-w-2xl mx-auto mb-8 lg:mb-12">
-              <div className="card-dark rounded-lg p-4 sm:p-6 lg:p-8 transition-all duration-300 hover:shadow-2xl">
-                <div className="space-y-4 lg:space-y-6">
+            <div className="max-w-2xl mx-auto mb-12">
+              <div className="card-dark rounded-lg p-6 lg:p-8 transition-all duration-300 hover:shadow-2xl">
+                <div className="space-y-6">
                   <ErrorBoundary componentName="Search Input">
                     <SearchInput
                       value={animeName}
@@ -146,51 +202,65 @@ function App() {
                 </div>
               </div>
             </div>
-          </section>
 
-          {/* Results Section with smooth transitions and error boundaries */}
-          <section 
-            className="transition-all duration-500 ease-in-out"
-            aria-labelledby="results-heading"
-            aria-live="polite"
-            aria-atomic="false"
-          >
-            <h2 id="results-heading" className="sr-only">
-              Search Results
-            </h2>
-            
-            <ErrorBoundary componentName="Search Results">
-              <AnimationErrorBoundary componentName="Search Results">
-                <SearchedAnime 
-                  searchedAnime={searchedAnime} 
-                  onClearSearch={handleClearSearch}
-                />
-                <ResultsGrid 
-                  similarAnimes={similarAnimes} 
-                  searchedAnime={searchedAnime}
-                  onClearSearch={handleClearSearch}
-                />
-              </AnimationErrorBoundary>
-            </ErrorBoundary>
-          </section>
-        </main>
-      </div>
+            {/* Results */}
+            <div 
+              className="transition-all duration-500 ease-in-out"
+              aria-live="polite"
+              aria-atomic="false"
+            >
+              <ErrorBoundary componentName="Search Results">
+                <AnimationErrorBoundary componentName="Search Results">
+                  <SearchedAnime 
+                    searchedAnime={searchedAnime} 
+                    onClearSearch={handleClearSearch}
+                  />
+                  <ResultsGrid 
+                    similarAnimes={similarAnimes} 
+                    searchedAnime={searchedAnime}
+                    onClearSearch={handleClearSearch}
+                  />
+                </AnimationErrorBoundary>
+              </ErrorBoundary>
+            </div>
+          </div>
+        </section>
 
-      {/* Model Showcase Section with smooth transition and error boundary */}
-      <section 
-        className="transition-all duration-1000 ease-in-out"
-        aria-labelledby="model-showcase-heading"
-      >
-        <h2 id="model-showcase-heading" className="sr-only">
-          AI Model Information
-        </h2>
-        
-        <ErrorBoundary componentName="Model Showcase">
-          <AnimationErrorBoundary componentName="Model Showcase">
-            <ModelShowcase />
+        {/* Tech Stack Section */}
+        <ErrorBoundary componentName="Tech Stack Section">
+          <AnimationErrorBoundary componentName="Tech Stack">
+            <TechStackSection />
           </AnimationErrorBoundary>
         </ErrorBoundary>
-      </section>
+
+        {/* Results Section */}
+        <ErrorBoundary componentName="Results Section">
+          <AnimationErrorBoundary componentName="Results">
+            <ResultsSection />
+          </AnimationErrorBoundary>
+        </ErrorBoundary>
+
+        {/* Model Showcase Section - Keeping existing implementation */}
+        <section 
+          className="transition-all duration-1000 ease-in-out"
+          aria-labelledby="model-showcase-heading"
+        >
+          <h2 id="model-showcase-heading" className="sr-only">
+            AI Model Information
+          </h2>
+          
+          <ErrorBoundary componentName="Model Showcase">
+            <AnimationErrorBoundary componentName="Model Showcase">
+              <ModelShowcase />
+            </AnimationErrorBoundary>
+          </ErrorBoundary>
+        </section>
+      </main>
+
+      {/* Footer Section */}
+      <ErrorBoundary componentName="Footer Section">
+        <FooterSection />
+      </ErrorBoundary>
     </div>
   )
 }
