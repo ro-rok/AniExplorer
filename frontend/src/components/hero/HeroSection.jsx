@@ -76,12 +76,13 @@ const HeroSection = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                // Scroll to search section
-                const searchSection = document.querySelector('#search-section')
-                if (searchSection) {
-                  searchSection.scrollIntoView({ behavior: 'smooth' })
+                // Smooth scroll to next section (search section)
+                const nextSection = document.querySelector('#search-section')
+                if (nextSection) {
+                  nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
                 }
               }}
+              aria-label="Scroll to search section"
             >
               Start Exploring
             </motion.button>
@@ -94,9 +95,10 @@ const HeroSection = () => {
                 // Scroll to model showcase section
                 const modelSection = document.querySelector('#model-section')
                 if (modelSection) {
-                  modelSection.scrollIntoView({ behavior: 'smooth' })
+                  modelSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
                 }
               }}
+              aria-label="Scroll to model showcase section"
             >
               Learn About Our AI
             </motion.button>
