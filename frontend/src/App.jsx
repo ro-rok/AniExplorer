@@ -12,13 +12,11 @@ import HeroSection from './components/hero/HeroSection'
 import {
   ProblemSection,
   SolutionSection,
-  HowItWorksSection,
+  ShowcaseSection,
   LiveSearchSection,
-  TechStackSection,
-  ResultsSection,
+  HowItWorksSection,
   FooterSection
 } from './components/sections'
-import ModelShowcase from './components/model/ModelShowcase'
 import { EmbeddingNetwork } from './components/embedding'
 
 function App() {
@@ -84,32 +82,32 @@ function App() {
           </ErrorBoundary>
         </LazySection>
 
-        {/* How It Works Section - Lazy load */}
+        {/* Showcase Section - Lazy load */}
         <LazySection>
-          <ErrorBoundary componentName="How It Works Section">
-            <AnimationErrorBoundary componentName="How It Works">
-              <HowItWorksSection />
+          <ErrorBoundary componentName="Showcase Section">
+            <AnimationErrorBoundary componentName="Showcase">
+              <ShowcaseSection />
             </AnimationErrorBoundary>
           </ErrorBoundary>
         </LazySection>
 
-        {/* Interactive Demo Section - Lazy load */}
+        {/* Interactive Embedding Network Section - Lazy load */}
         <LazySection>
           <section 
             id="interactive-demo" 
-            className="min-h-screen flex items-center justify-center py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-true-black"
+            className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-true-black"
             aria-labelledby="interactive-demo-heading"
           >
             <div className="container mx-auto max-w-7xl">
               <h2 
                 id="interactive-demo-heading"
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-off-white mb-8 sm:mb-10 md:mb-12 text-center"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-off-white mb-6 sm:mb-8 md:mb-10 text-center font-heading"
               >
-                Interactive Embedding Demo
+                Interactive Embedding Network
               </h2>
               <p className="text-base sm:text-lg md:text-xl text-slate-300 text-center mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto">
                 Explore how genre weights affect anime recommendations in real-time. 
-                Adjust the sliders to see the embedding vector, similarity scores, and recommendations update instantly.
+                This is a frontend simulation for educational purposes—adjust the sliders to see the embedding vector, similarity scores, and recommendations update instantly.
               </p>
               
               <ErrorBoundary componentName="Embedding Network">
@@ -121,7 +119,7 @@ function App() {
           </section>
         </LazySection>
 
-        {/* Live Search Section - Lazy load */}
+        {/* Live Search Section - Lazy load (includes Results merged) */}
         <LazySection>
           <ErrorBoundary componentName="Live Search Section">
             <AnimationErrorBoundary componentName="Live Search">
@@ -130,40 +128,13 @@ function App() {
           </ErrorBoundary>
         </LazySection>
 
-        {/* Tech Stack Section - Lazy load */}
+        {/* How the AI Works Section - Finale, Lazy load */}
         <LazySection>
-          <ErrorBoundary componentName="Tech Stack Section">
-            <AnimationErrorBoundary componentName="Tech Stack">
-              <TechStackSection />
+          <ErrorBoundary componentName="How It Works Section">
+            <AnimationErrorBoundary componentName="How It Works">
+              <HowItWorksSection />
             </AnimationErrorBoundary>
           </ErrorBoundary>
-        </LazySection>
-
-        {/* Results Section - Lazy load */}
-        <LazySection>
-          <ErrorBoundary componentName="Results Section">
-            <AnimationErrorBoundary componentName="Results">
-              <ResultsSection />
-            </AnimationErrorBoundary>
-          </ErrorBoundary>
-        </LazySection>
-
-        {/* Model Showcase Section - Lazy load */}
-        <LazySection>
-          <section 
-            className="transition-all duration-1000 ease-in-out"
-            aria-labelledby="model-showcase-heading"
-          >
-            <h2 id="model-showcase-heading" className="sr-only">
-              AI Model Information
-            </h2>
-            
-            <ErrorBoundary componentName="Model Showcase">
-              <AnimationErrorBoundary componentName="Model Showcase">
-                <ModelShowcase />
-              </AnimationErrorBoundary>
-            </ErrorBoundary>
-          </section>
         </LazySection>
       </main>
 

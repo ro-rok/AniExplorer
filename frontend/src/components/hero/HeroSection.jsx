@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { useGSAP } from '../../hooks/useGSAP'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import BackgroundImage from '../common/BackgroundImage'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -47,14 +46,19 @@ const HeroSection = () => {
 
   return (
     <section id="hero" ref={heroRef} className="relative h-screen overflow-hidden">
-      {/* Optimized Background Image with Overlay */}
-      <BackgroundImage
-        src="/bg.jpg"
-        alt="Anime Background"
-        className="absolute inset-0"
-        overlayClassName="bg-gradient-to-b from-black/50 via-black/30 to-black/70"
-        priority={true}
+      {/* Direct Background Image */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'url(/bg.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       />
+      
+      {/* Overlay */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
       
       {/* Hero Content */}
       <div className="hero-content relative z-10 flex items-center justify-center h-full px-4 sm:px-6 lg:px-8">

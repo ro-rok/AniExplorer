@@ -1,5 +1,5 @@
-// API Configuration
-export const API_BASE_URL = 'http://127.0.0.1:5000'
+// API Configuration - Use environment variable with fallback
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
 
 // Animation Configuration
 export const ANIMATION_CONFIG = {
@@ -91,4 +91,42 @@ export const Z_INDEX = {
   popover: 1060,
   tooltip: 1070,
   toast: 1080,
+}
+
+// Genre Group Mappings (matching embeddingMath.js)
+export const GENRE_GROUP_MAPPINGS = {
+  'Action/Adventure': ['Action', 'Adventure'],
+  'Drama/Romance': ['Drama', 'Romance'],
+  'Comedy/Slice of Life': ['Comedy', 'Slice of Life'],
+  'Fantasy/Sci-Fi': ['Fantasy', 'Sci-Fi'],
+  'Psychological/Thriller': ['Psychological', 'Thriller'],
+  'Horror/Mystery': ['Horror', 'Mystery'],
+}
+
+// Preset Configurations
+export const PRESET_CONFIGS = {
+  'Shonen Boost': {
+    'Action/Adventure': 2.0,
+    'Fantasy/Sci-Fi': 1.5,
+    'Drama/Romance': 0.5,
+    'Comedy/Slice of Life': 0.8,
+    'Psychological/Thriller': 0.7,
+    'Horror/Mystery': 0.6,
+  },
+  'Romance Night': {
+    'Drama/Romance': 2.0,
+    'Comedy/Slice of Life': 1.3,
+    'Action/Adventure': 0.5,
+    'Fantasy/Sci-Fi': 0.6,
+    'Psychological/Thriller': 0.8,
+    'Horror/Mystery': 0.4,
+  },
+  'Dark Psychological': {
+    'Psychological/Thriller': 2.0,
+    'Horror/Mystery': 1.5,
+    'Drama/Romance': 1.2,
+    'Action/Adventure': 0.8,
+    'Fantasy/Sci-Fi': 0.7,
+    'Comedy/Slice of Life': 0.3,
+  },
 }

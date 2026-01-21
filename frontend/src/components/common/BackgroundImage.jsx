@@ -118,22 +118,22 @@ const BackgroundImage = ({
       {/* Background Image */}
       {imageSrc && imageState === 'loaded' && (
         <motion.div
-          className="absolute inset-0"
+          className="absolute inset-0 z-0"
           variants={backgroundVariants}
           animate={imageState}
           initial="loading"
-        >
-          <img 
-            src={imageSrc}
-            alt={alt}
-            className="w-full h-full object-cover"
-          />
-        </motion.div>
+          style={{ 
+            backgroundImage: `url(${imageSrc})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
       )}
 
       {/* Overlay */}
       {overlayClassName && (
-        <div className={`absolute inset-0 ${overlayClassName}`} />
+        <div className={`absolute inset-0 z-[1] ${overlayClassName}`} />
       )}
 
       {/* Content */}

@@ -14,12 +14,17 @@ This is not just an anime recommendation app—it's an **educational portfolio p
 ## ✨ Features
 
 ### Interactive Embedding Network
-The centerpiece of this project—a visual, manipulable representation of the genre-weighted embedding approach:
+The centerpiece of this project—a **frontend-only educational simulation** that visualizes how genre-weighted embeddings work:
+- **Query Selection**: Switch between three real anime examples (One Piece, Your Lie in April, Terror in Resonance)
+- **Baseline/With-Genre Toggle**: Compare pure embedding similarity vs genre-weighted similarity
 - **6 Genre Group Sliders**: Adjust weights (0-2 range) for Action/Adventure, Drama/Romance, Comedy/Slice of Life, Fantasy/Sci-Fi, Psychological/Thriller, Horror/Mystery
+- **SVG Network Visualization**: Deterministic layout showing Query → Genre Groups → Embedding Vector → Similarity Output with dynamic connection lines
 - **Real-Time Computation**: Watch embedding vectors, similarity scores, and recommendations update instantly
-- **Visual Feedback**: Connection lines show weight influence, bars display embedding dimensions
+- **Before/After Comparison**: See how baseline top-5 differs from with-genre top-5 for each query
 - **Preset Configurations**: Try "Shonen Boost", "Romance Night", or "Dark Psychological" presets
-- **Educational Value**: Learn how weighted embeddings affect recommendation ranking through experimentation
+- **Educational Value**: Learn how weighted embeddings affect recommendation ranking through hands-on experimentation
+
+**Important**: This is a frontend simulation for educational purposes. The Live Search section uses the real backend API (POST /find_similar) with actual notebook results.
 
 ### Live Anime Search
 - Real backend integration with FastAPI service
@@ -65,15 +70,18 @@ The centerpiece of this project—a visual, manipulable representation of the ge
    - Add your `bg.jpg` file to the `public/` directory
    - The image should be high-resolution (1920x1080 or larger)
    - Recommended: Anime-themed cinematic background
-   - Path: `frontend/public/bg.jpg`
+   - **Exact path**: `frontend/public/bg.jpg`
+   - The Hero section will automatically use this image
 
-4. **Configure API connection** (optional):
+4. **Configure API connection**:
    Create a `.env.local` file in the frontend directory:
    ```bash
    VITE_API_BASE_URL=http://localhost:8000
    ```
    
-   If not set, defaults to `http://localhost:8000`
+   - If not set, defaults to `http://localhost:8000`
+   - This is used for the Live Search section (real backend API)
+   - The Interactive Embedding Network is frontend-only and doesn't require the backend
 
 5. Start the development server:
    ```bash
@@ -138,22 +146,30 @@ Tests include:
 
 ## 📚 What the Interactive Demo Teaches
 
-The **Interactive Embedding Network** is an educational tool that demonstrates:
+The **Interactive Embedding Network** is a frontend-only educational simulation that demonstrates:
+
+### Separation: Notebook Results vs Interactive Simulation
+
+- **Notebook Results**: Real backend API results (POST /find_similar) shown in the Live Search section. These are actual results from the trained ML model.
+- **Interactive Simulation**: Frontend-only educational demo shown in the Interactive Embedding Network section. This is a simplified, deterministic simulation for learning purposes.
 
 ### 1. Genre-Weighted Embeddings
 - Each anime is represented as a 12-dimensional vector (one dimension per genre)
 - Genre weights amplify or diminish specific dimensions
 - Adjusting sliders shows how weights affect the embedding vector in real-time
+- Baseline mode uses pure binary vectors (1 if genre present, 0 if not)
+- With-genre mode applies weighted boosts based on genre overlap
 
-### 2. Dot Product Similarity
-- Similarity is computed as the normalized dot product of two embedding vectors
-- Higher dot product = more similar anime
-- Visual similarity meter updates as you adjust weights
+### 2. Cosine Similarity
+- Similarity is computed as the normalized dot product (cosine similarity) of two embedding vectors
+- Higher similarity score = more similar anime
+- Visual similarity meter and network connections update as you adjust weights
 
 ### 3. Dynamic Re-Ranking
 - Recommendations are sorted by similarity score
-- Changing genre weights recalculates all similarities
+- Changing genre weights recalculates all similarities deterministically
 - Watch the recommendation list reorder with smooth animations
+- Compare baseline top-5 vs with-genre top-5 in the Before/After table
 
 ### 4. Practical ML Intuition
 - **Boost Action**: Increase Action/Adventure weight → more action anime recommended
@@ -165,6 +181,7 @@ The **Interactive Embedding Network** is an educational tool that demonstrates:
 - Seeing the impact of feature weighting on similarity metrics
 - Grasping the relationship between embeddings and recommendations
 - Appreciating the power of interactive visualization for ML education
+- Understanding the difference between baseline (pure similarity) and with-genre (weighted boost) modes
 
 ## 🏗️ Project Structure
 

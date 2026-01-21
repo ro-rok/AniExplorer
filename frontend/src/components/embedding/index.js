@@ -1,4 +1,6 @@
 export { default as EmbeddingNetwork } from './EmbeddingNetwork';
+export { default as QueryTabs } from './QueryTabs';
+export { default as NetworkVisualization } from './NetworkVisualization';
 export { default as GenreNode } from './GenreNode';
 export { default as ConnectionLines } from './ConnectionLines';
 export { default as EmbeddingVector } from './EmbeddingVector';

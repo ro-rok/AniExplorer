@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -14,6 +15,9 @@
   body {
     @apply font-body bg-true-black text-off-white leading-relaxed;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /* Subtle noise texture overlay */
+    background-image: 
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
   }
 
   /* Cinematic heading styles */
@@ -89,13 +93,26 @@
     @apply bg-transparent hover:bg-near-black text-off-white border border-gray-800;
   }
 
-  /* Cinematic cards */
+  /* Cinematic cards with visual tokens */
   .card-dark {
-    @apply bg-near-black border border-gray-900 shadow-xl;
+    @apply bg-near-black border border-light rounded-card shadow-soft;
   }
 
   .card-dark:hover {
-    @apply shadow-2xl border-gray-800;
+    @apply shadow-soft-md border-medium;
+  }
+
+  /* Hairline borders with opacity */
+  .border-hairline {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .border-hairline-medium {
+    border: 1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  .border-hairline-strong {
+    border: 1px solid rgba(255, 255, 255, 0.12);
   }
 }
 

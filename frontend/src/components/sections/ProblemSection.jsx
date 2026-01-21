@@ -1,9 +1,6 @@
-import { useRef, useEffect } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
-
-gsap.registerPlugin(ScrollTrigger)
 
 /**
  * Problem Section - Explains the challenge of finding similar anime
@@ -11,69 +8,78 @@ gsap.registerPlugin(ScrollTrigger)
  */
 const ProblemSection = () => {
   const sectionRef = useRef(null)
-  const headingRef = useRef(null)
-  const contentRef = useRef(null)
   const prefersReducedMotion = useReducedMotion()
 
-  useEffect(() => {
-    if (prefersReducedMotion || !sectionRef.current) return
+  // Scroll-based parallax effects
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start']
+  })
 
-    const ctx = gsap.context(() => {
-      // Fade in heading
-      gsap.from(headingRef.current, {
-        opacity: 0,
-        y: 50,
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100])
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.8, 1, 1, 0.8])
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
         duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'top 50%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-
-      // Fade in content
-      gsap.from(contentRef.current, {
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        delay: 0.2,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'top 50%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [prefersReducedMotion])
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
+  }
 
   return (
     <section 
       ref={sectionRef}
       id="problem" 
-      className="min-h-screen flex items-center justify-center py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-near-black"
+      className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-near-black relative overflow-hidden"
       aria-labelledby="problem-heading"
     >
-      <div className="container mx-auto max-w-4xl lg:max-w-6xl xl:max-w-7xl">
-        <h2 
-          ref={headingRef}
+      <motion.div 
+        className="container mx-auto max-w-4xl lg:max-w-6xl xl:max-w-7xl"
+        style={prefersReducedMotion ? {} : { opacity, scale }}
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }}
+      >
+        <motion.h2 
           id="problem-heading"
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-off-white mb-6 sm:mb-8 lg:mb-10 text-center"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-off-white mb-8 sm:mb-10 lg:mb-12 text-center font-heading"
+          variants={itemVariants}
+          style={prefersReducedMotion ? {} : { y: useTransform(scrollYProgress, [0, 1], [50, -50]) }}
         >
           The Problem
-        </h2>
-        <div ref={contentRef} className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 space-y-4 sm:space-y-6">
-          <p className="text-center">
+        </motion.h2>
+        <motion.div 
+          className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 space-y-4 sm:space-y-6"
+          variants={itemVariants}
+        >
+          <motion.p 
+            className="text-center"
+            variants={itemVariants}
+          >
             Finding anime similar to your favorites is challenging...
-          </p>
+          </motion.p>
           {/* Content will be added in future tasks */}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

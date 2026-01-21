@@ -2,10 +2,11 @@ import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 // Preset configurations based on 6 grouped genre categories
+// Using real anime examples from the recommendation system
 const PRESETS = [
   {
-    name: 'Shonen Boost',
-    description: 'Emphasize action-packed shonen anime',
+    name: 'One Piece Style',
+    description: 'Action-packed adventures like One Piece, Naruto, Bleach',
     weights: {
       'Action/Adventure': 2.0,
       'Fantasy/Sci-Fi': 1.5,
@@ -16,8 +17,8 @@ const PRESETS = [
     },
   },
   {
-    name: 'Romance Night',
-    description: 'Focus on romantic and emotional stories',
+    name: 'Your Lie in April',
+    description: 'Emotional dramas like Your Lie in April, Your Name, A Silent Voice',
     weights: {
       'Drama/Romance': 2.0,
       'Comedy/Slice of Life': 1.3,
@@ -28,8 +29,8 @@ const PRESETS = [
     },
   },
   {
-    name: 'Dark Psychological',
-    description: 'Highlight dark, mind-bending narratives',
+    name: 'Terror in Resonance',
+    description: 'Dark psychological thrillers like Terror in Resonance, ERASED, Psycho-Pass',
     weights: {
       'Psychological/Thriller': 2.0,
       'Horror/Mystery': 1.5,

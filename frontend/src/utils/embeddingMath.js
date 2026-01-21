@@ -21,6 +21,26 @@ export const GENRE_INDEX = {
 export const EMBEDDING_DIM = Object.keys(GENRE_INDEX).length;
 
 /**
+ * Compute a baseline embedding vector (no genre weighting)
+ * Pure binary representation: 1 if genre present, 0 if not
+ * 
+ * @param {string[]} genres - Array of genre names
+ * @returns {number[]} 12-dimensional baseline embedding vector
+ */
+export const computeBaselineEmbedding = (genres) => {
+  const vector = new Array(EMBEDDING_DIM).fill(0);
+  
+  genres.forEach((genre) => {
+    const index = GENRE_INDEX[genre];
+    if (index !== undefined) {
+      vector[index] = 1.0;
+    }
+  });
+  
+  return vector;
+};
+
+/**
  * Compute a weighted genre embedding vector for an anime.
  * 
  * This function creates a 12-dimensional vector representation of an anime based on its genres.
@@ -37,6 +57,7 @@ export const EMBEDDING_DIM = Object.keys(GENRE_INDEX).length;
  *   Keys are genre group names: 'Action/Adventure', 'Drama/Romance', 'Comedy/Slice of Life',
  *   'Fantasy/Sci-Fi', 'Psychological/Thriller', 'Horror/Mystery'
  *   Values are weights in range [0, 2] where 1.0 is neutral, >1.0 boosts, <1.0 diminishes
+ * @param {boolean} [useBaseline=false] - If true, use baseline mode (no weighting)
  * @returns {number[]} 12-dimensional weighted embedding vector
  * 
  * @example
@@ -52,8 +73,17 @@ export const EMBEDDING_DIM = Object.keys(GENRE_INDEX).length;
  * };
  * const embedding = computeWeightedEmbedding(['Action', 'Romance'], weights);
  * // Result: [2, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0, 0]
+ * 
+ * @example
+ * // Baseline mode (no weighting)
+ * const embedding = computeWeightedEmbedding(['Action', 'Adventure'], {}, true);
+ * // Result: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
  */
-export const computeWeightedEmbedding = (genres, weights = {}) => {
+export const computeWeightedEmbedding = (genres, weights = {}, useBaseline = false) => {
+  if (useBaseline) {
+    return computeBaselineEmbedding(genres);
+  }
+  
   const vector = new Array(EMBEDDING_DIM).fill(0);
   
   genres.forEach((genre) => {
@@ -72,6 +102,60 @@ export const computeWeightedEmbedding = (genres, weights = {}) => {
   });
   
   return vector;
+};
+
+/**
+ * Compute similarity with optional genre-weighted boost
+ * 
+ * @param {number[]} vec1 - First embedding vector
+ * @param {number[]} vec2 - Second embedding vector
+ * @param {string[]} genres1 - Genres of first anime
+ * @param {string[]} genres2 - Genres of second anime
+ * @param {Object.<string, number>} [weights={}] - Genre group weights for boost
+ * @param {boolean} [useBaseline=false] - If true, use pure cosine similarity
+ * @returns {number} Similarity score in range [0, 1]
+ */
+export const computeSimilarityWithGenreBoost = (
+  vec1, 
+  vec2, 
+  genres1 = [], 
+  genres2 = [], 
+  weights = {}, 
+  useBaseline = false
+) => {
+  // Base cosine similarity
+  const baseSimilarity = computeSimilarity(vec1, vec2);
+  
+  if (useBaseline) {
+    return baseSimilarity;
+  }
+  
+  // Genre-weighted boost: calculate genre overlap with exponential decay
+  let genreBoost = 0;
+  const genreOverlap = genres1.filter(g => genres2.includes(g));
+  
+  if (genreOverlap.length > 0) {
+    genreOverlap.forEach((genre, idx) => {
+      // Find which group this genre belongs to
+      for (const [groupName, groupGenres] of Object.entries(GENRE_GROUPS)) {
+        if (groupGenres.includes(genre)) {
+          const groupWeight = weights[groupName] || 1.0;
+          // Exponential decay: first genre gets full weight, subsequent get less
+          const decayRate = 0.7;
+          const boostValue = groupWeight * Math.pow(decayRate, idx);
+          genreBoost += boostValue;
+          break;
+        }
+      }
+    });
+    
+    // Normalize boost (max boost is when all genres overlap with max weights)
+    const maxPossibleBoost = Object.keys(GENRE_GROUPS).length * 2; // 6 groups * max weight 2
+    genreBoost = Math.min(genreBoost / maxPossibleBoost, 0.3); // Cap at 30% boost
+  }
+  
+  // Combine base similarity with genre boost
+  return Math.min(1.0, baseSimilarity + genreBoost);
 };
 
 /**
