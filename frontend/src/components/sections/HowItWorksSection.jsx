@@ -7,6 +7,51 @@ import { NOTEBOOK_BASELINE_RESULTS } from '../../utils/mockData'
 gsap.registerPlugin(ScrollTrigger)
 
 /**
+ * Pipeline Node Component
+ */
+const PipelineNode = ({ label }) => (
+  <div className="flex-shrink-0 px-4 py-2 bg-gradient-to-br from-accent-blue/30 to-accent-blue/10 border border-accent-blue/50 rounded-lg text-center min-w-[100px]">
+    <span className="text-sm font-medium text-off-white">{label}</span>
+  </div>
+)
+
+/**
+ * Pipeline Arrow Component (Horizontal)
+ */
+const PipelineArrow = () => (
+  <div className="flex-shrink-0 flex items-center">
+    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M9 18L15 12L9 6"
+        stroke="#00D9FF"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeOpacity="0.5"
+      />
+    </svg>
+  </div>
+)
+
+/**
+ * Pipeline Arrow Component (Vertical)
+ */
+const PipelineArrowVertical = () => (
+  <div className="flex-shrink-0 flex items-center">
+    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M6 9L12 15L18 9"
+        stroke="#00D9FF"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeOpacity="0.5"
+      />
+    </svg>
+  </div>
+)
+
+/**
  * Proof data with exact notebook baseline similarity scores (3 decimals)
  * Extracted from NOTEBOOK_BASELINE_RESULTS
  */
@@ -79,7 +124,7 @@ const HowItWorksSection = () => {
       className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-near-black"
       aria-labelledby="how-it-works-heading"
     >
-      <div className="container mx-auto max-w-6xl">
+      <div className="container mx-auto max-w-7xl">
         <h2 
           ref={headingRef}
           id="how-it-works-heading"
@@ -163,30 +208,30 @@ const HowItWorksSection = () => {
               <div>
                 <h4 className="text-lg font-semibold text-off-white mb-4">Baseline (No Genre)</h4>
                 <div className="relative">
-                  <svg className="w-full h-24" viewBox="0 0 800 80" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="baselineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#00D9FF" stopOpacity="0.3" />
-                        <stop offset="100%" stopColor="#00D9FF" stopOpacity="0.1" />
-                      </linearGradient>
-                    </defs>
-                    {/* Connection lines */}
-                    <line x1="50" y1="40" x2="200" y2="40" stroke="#00D9FF" strokeWidth="2" strokeOpacity="0.4" />
-                    <line x1="250" y1="40" x2="400" y2="40" stroke="#00D9FF" strokeWidth="2" strokeOpacity="0.4" />
-                    <line x1="450" y1="40" x2="600" y2="40" stroke="#00D9FF" strokeWidth="2" strokeOpacity="0.4" />
-                    <line x1="650" y1="40" x2="750" y2="40" stroke="#00D9FF" strokeWidth="2" strokeOpacity="0.4" />
-                    {/* Nodes */}
-                    <rect x="0" y="20" width="100" height="40" rx="8" fill="url(#baselineGradient)" stroke="#00D9FF" strokeWidth="1" strokeOpacity="0.5" />
-                    <text x="50" y="45" textAnchor="middle" fill="#f5f5f5" fontSize="12" fontWeight="500">Ratings</text>
-                    <rect x="150" y="20" width="100" height="40" rx="8" fill="url(#baselineGradient)" stroke="#00D9FF" strokeWidth="1" strokeOpacity="0.5" />
-                    <text x="200" y="45" textAnchor="middle" fill="#f5f5f5" fontSize="12" fontWeight="500">Embeddings</text>
-                    <rect x="300" y="20" width="100" height="40" rx="8" fill="url(#baselineGradient)" stroke="#00D9FF" strokeWidth="1" strokeOpacity="0.5" />
-                    <text x="350" y="45" textAnchor="middle" fill="#f5f5f5" fontSize="12" fontWeight="500">Similarity</text>
-                    <rect x="450" y="20" width="100" height="40" rx="8" fill="url(#baselineGradient)" stroke="#00D9FF" strokeWidth="1" strokeOpacity="0.5" />
-                    <text x="500" y="45" textAnchor="middle" fill="#f5f5f5" fontSize="12" fontWeight="500">Ranked</text>
-                    <rect x="600" y="20" width="100" height="40" rx="8" fill="url(#baselineGradient)" stroke="#00D9FF" strokeWidth="1" strokeOpacity="0.5" />
-                    <text x="650" y="45" textAnchor="middle" fill="#f5f5f5" fontSize="12" fontWeight="500">Results</text>
-                  </svg>
+                  {/* Desktop: Horizontal Pipeline */}
+                  <div className="hidden md:flex items-center justify-between gap-2">
+                    <PipelineNode label="Ratings" />
+                    <PipelineArrow />
+                    <PipelineNode label="Embeddings" />
+                    <PipelineArrow />
+                    <PipelineNode label="Similarity" />
+                    <PipelineArrow />
+                    <PipelineNode label="Ranking" />
+                    <PipelineArrow />
+                    <PipelineNode label="Results" />
+                  </div>
+                  {/* Mobile: Vertical Pipeline */}
+                  <div className="md:hidden flex flex-col items-center gap-3">
+                    <PipelineNode label="Ratings" />
+                    <PipelineArrowVertical />
+                    <PipelineNode label="Embeddings" />
+                    <PipelineArrowVertical />
+                    <PipelineNode label="Similarity" />
+                    <PipelineArrowVertical />
+                    <PipelineNode label="Ranking" />
+                    <PipelineArrowVertical />
+                    <PipelineNode label="Results" />
+                  </div>
                 </div>
               </div>
 
@@ -194,28 +239,34 @@ const HowItWorksSection = () => {
               <div>
                 <h4 className="text-lg font-semibold text-off-white mb-4">With Genre Weighting</h4>
                 <div className="relative">
-                  <svg className="w-full h-24" viewBox="0 0 800 80" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="genreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#00D9FF" stopOpacity="0.4" />
-                        <stop offset="100%" stopColor="#00D9FF" stopOpacity="0.2" />
-                      </linearGradient>
-                    </defs>
-                    {/* Connection lines */}
-                    <line x1="50" y1="40" x2="200" y2="40" stroke="#00D9FF" strokeWidth="2" strokeOpacity="0.5" />
-                    <line x1="250" y1="40" x2="400" y2="40" stroke="#00D9FF" strokeWidth="2" strokeOpacity="0.5" />
-                    <line x1="450" y1="40" x2="600" y2="40" stroke="#00D9FF" strokeWidth="2" strokeOpacity="0.5" />
-                    <line x1="650" y1="40" x2="750" y2="40" stroke="#00D9FF" strokeWidth="2" strokeOpacity="0.5" />
-                    {/* Nodes */}
-                    <rect x="0" y="20" width="100" height="40" rx="8" fill="url(#genreGradient)" stroke="#00D9FF" strokeWidth="1" strokeOpacity="0.6" />
-                    <text x="50" y="45" textAnchor="middle" fill="#f5f5f5" fontSize="12" fontWeight="500">Genres</text>
-                    <rect x="150" y="20" width="100" height="40" rx="8" fill="url(#genreGradient)" stroke="#00D9FF" strokeWidth="1" strokeOpacity="0.6" />
-                    <text x="200" y="45" textAnchor="middle" fill="#f5f5f5" fontSize="12" fontWeight="500">Adjusted</text>
-                    <rect x="300" y="20" width="100" height="40" rx="8" fill="url(#genreGradient)" stroke="#00D9FF" strokeWidth="1" strokeOpacity="0.6" />
-                    <text x="350" y="45" textAnchor="middle" fill="#f5f5f5" fontSize="12" fontWeight="500">Re-ranked</text>
-                    <rect x="450" y="20" width="100" height="40" rx="8" fill="url(#genreGradient)" stroke="#00D9FF" strokeWidth="1" strokeOpacity="0.6" />
-                    <text x="500" y="45" textAnchor="middle" fill="#f5f5f5" fontSize="12" fontWeight="500">Results</text>
-                  </svg>
+                  {/* Desktop: Horizontal Pipeline */}
+                  <div className="hidden md:flex items-center justify-between gap-2">
+                    <PipelineNode label="Ratings" />
+                    <PipelineArrow />
+                    <PipelineNode label="Embeddings" />
+                    <PipelineArrow />
+                    <PipelineNode label="Similarity" />
+                    <PipelineArrow />
+                    <PipelineNode label="Genre Weights" />
+                    <PipelineArrow />
+                    <PipelineNode label="Adjusted Ranking" />
+                    <PipelineArrow />
+                    <PipelineNode label="Results" />
+                  </div>
+                  {/* Mobile: Vertical Pipeline */}
+                  <div className="md:hidden flex flex-col items-center gap-3">
+                    <PipelineNode label="Ratings" />
+                    <PipelineArrowVertical />
+                    <PipelineNode label="Embeddings" />
+                    <PipelineArrowVertical />
+                    <PipelineNode label="Similarity" />
+                    <PipelineArrowVertical />
+                    <PipelineNode label="Genre Weights" />
+                    <PipelineArrowVertical />
+                    <PipelineNode label="Adjusted Ranking" />
+                    <PipelineArrowVertical />
+                    <PipelineNode label="Results" />
+                  </div>
                 </div>
               </div>
             </div>

@@ -123,7 +123,7 @@ const ShowcaseSection = () => {
       className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-near-black"
       aria-labelledby="showcase-heading"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="container mx-auto max-w-7xl">
         <h2
           ref={headingRef}
           id="showcase-heading"

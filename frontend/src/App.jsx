@@ -10,8 +10,6 @@ import {
 } from './components/common'
 import HeroSection from './components/hero/HeroSection'
 import {
-  ProblemSection,
-  SolutionSection,
   ShowcaseSection,
   LiveSearchSection,
   HowItWorksSection,
@@ -64,20 +62,11 @@ function App() {
           </AnimationErrorBoundary>
         </ErrorBoundary>
 
-        {/* Problem Section - Lazy load */}
+        {/* Live Search Section - Lazy load (includes Results merged) */}
         <LazySection>
-          <ErrorBoundary componentName="Problem Section">
-            <AnimationErrorBoundary componentName="Problem">
-              <ProblemSection />
-            </AnimationErrorBoundary>
-          </ErrorBoundary>
-        </LazySection>
-
-        {/* Solution Section - Lazy load */}
-        <LazySection>
-          <ErrorBoundary componentName="Solution Section">
-            <AnimationErrorBoundary componentName="Solution">
-              <SolutionSection />
+          <ErrorBoundary componentName="Live Search Section">
+            <AnimationErrorBoundary componentName="Live Search">
+              <LiveSearchSection />
             </AnimationErrorBoundary>
           </ErrorBoundary>
         </LazySection>
@@ -117,15 +106,6 @@ function App() {
               </ErrorBoundary>
             </div>
           </section>
-        </LazySection>
-
-        {/* Live Search Section - Lazy load (includes Results merged) */}
-        <LazySection>
-          <ErrorBoundary componentName="Live Search Section">
-            <AnimationErrorBoundary componentName="Live Search">
-              <LiveSearchSection />
-            </AnimationErrorBoundary>
-          </ErrorBoundary>
         </LazySection>
 
         {/* How the AI Works Section - Finale, Lazy load */}

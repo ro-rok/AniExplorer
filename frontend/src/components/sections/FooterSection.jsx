@@ -22,32 +22,34 @@ const FooterSection = () => {
 
           {/* Links */}
           <div>
-            <h4 className="text-base sm:text-lg font-semibold text-off-white mb-3 sm:mb-4">Links</h4>
+            <h4 className="text-base sm:text-lg font-semibold text-off-white mb-3 sm:mb-4">Connect</h4>
             <ul className="space-y-2">
               <li>
                 <a 
-                  href="https://github.com" 
+                  href="https://github.com/ro-rok/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-sm sm:text-base text-slate-400 hover:text-accent-blue transition-colors duration-200 inline-block min-h-[44px] flex items-center"
+                  className="text-sm sm:text-base text-slate-400 hover:text-accent-blue focus:text-accent-blue focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2 focus:ring-offset-true-black rounded px-2 py-1 transition-all duration-200 inline-block min-h-[44px] flex items-center"
                 >
                   GitHub
                 </a>
               </li>
               <li>
                 <a 
-                  href="https://linkedin.com" 
+                  href="https://www.linkedin.com/in/rorok/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-sm sm:text-base text-slate-400 hover:text-accent-blue transition-colors duration-200 inline-block min-h-[44px] flex items-center"
+                  className="text-sm sm:text-base text-slate-400 hover:text-accent-blue focus:text-accent-blue focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2 focus:ring-offset-true-black rounded px-2 py-1 transition-all duration-200 inline-block min-h-[44px] flex items-center"
                 >
                   LinkedIn
                 </a>
               </li>
               <li>
                 <a 
-                  href="#" 
-                  className="text-sm sm:text-base text-slate-400 hover:text-accent-blue transition-colors duration-200 inline-block min-h-[44px] flex items-center"
+                  href="http://ro-port.vercel.app/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm sm:text-base text-slate-400 hover:text-accent-blue focus:text-accent-blue focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2 focus:ring-offset-true-black rounded px-2 py-1 transition-all duration-200 inline-block min-h-[44px] flex items-center"
                 >
                   Portfolio
                 </a>

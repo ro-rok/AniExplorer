@@ -80,10 +80,10 @@ const HeroSection = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                // Smooth scroll to next section (search section)
-                const nextSection = document.querySelector('#search-section')
-                if (nextSection) {
-                  nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                // Smooth scroll to live search section
+                const searchSection = document.getElementById('live-search')
+                if (searchSection) {
+                  searchSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
                 }
               }}
               aria-label="Scroll to search section"
@@ -96,13 +96,13 @@ const HeroSection = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                // Scroll to model showcase section
-                const modelSection = document.querySelector('#model-section')
-                if (modelSection) {
-                  modelSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                // Scroll to interactive demo section
+                const demoSection = document.getElementById('interactive-demo')
+                if (demoSection) {
+                  demoSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
                 }
               }}
-              aria-label="Scroll to model showcase section"
+              aria-label="Scroll to interactive demo section"
             >
               Learn About Our AI
             </motion.button>

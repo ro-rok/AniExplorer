@@ -44,5 +44,13 @@ export const useAnimeSearch = () => {
     }
   }, [results, search]);
 
-  return { loading, error, results, search, retry };
+  /**
+   * Clear search results and reset state
+   */
+  const clearResults = useCallback(() => {
+    setResults(null);
+    setError(null);
+  }, []);
+
+  return { loading, error, results, search, retry, clearResults };
 };
