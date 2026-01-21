@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useLenis } from './hooks'
 import { preloadCriticalImages } from './utils/imagePreloader'
@@ -12,25 +12,15 @@ import {
   ProblemSection,
   SolutionSection,
   HowItWorksSection,
+  LiveSearchSection,
   TechStackSection,
   ResultsSection,
   FooterSection
 } from './components/sections'
-import SearchInput from './components/search/SearchInput'
-import MediaTypeToggle from './components/search/MediaTypeToggle'
-import SearchButton from './components/search/SearchButton'
-import SearchedAnime from './components/results/SearchedAnime'
-import ResultsGrid from './components/results/ResultsGrid'
 import ModelShowcase from './components/model/ModelShowcase'
 import { EmbeddingNetwork } from './components/embedding'
 
 function App() {
-  const [animeName, setAnimeName] = useState('')
-  const [similarAnimes, setSimilarAnimes] = useState([])
-  const [searchedAnime, setSearchedAnime] = useState(null)
-  const [mediaType, setMediaType] = useState('tv')
-  const [isLoading, setIsLoading] = useState(false)
-
   // Initialize smooth scrolling
   useLenis()
 
@@ -50,43 +40,6 @@ function App() {
         // Silently handle the wake-up call
       })
   }, [])
-
-  const handleSearch = async () => {
-    if (!animeName.trim()) return
-
-    setIsLoading(true)
-    try {
-      const response = await fetch('http://127.0.0.1:5000/find_similar', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          anime_name: animeName,
-          media_type: mediaType
-        }),
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        setSimilarAnimes(data.similar_animes || [])
-        setSearchedAnime(data.anime_searched || null)
-      } else {
-        console.error('Failed to fetch similar animes')
-      }
-    } catch (error) {
-      console.error('Error:', error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const handleClearSearch = () => {
-    setAnimeName('')
-    setSimilarAnimes([])
-    setSearchedAnime(null)
-    setMediaType('tv')
-  }
 
   return (
     <div className="min-h-screen bg-true-black text-slate-100">
@@ -163,76 +116,11 @@ function App() {
         </section>
 
         {/* Live Search Section */}
-        <section 
-          id="live-search"
-          className="min-h-screen flex items-center justify-center py-20 px-4 bg-near-black"
-          aria-labelledby="live-search-heading"
-        >
-          <div className="container mx-auto max-w-6xl w-full">
-            <div className="text-center mb-12">
-              <h2 
-                id="live-search-heading"
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-off-white mb-6"
-              >
-                Try It Live
-              </h2>
-              <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
-                Search for any anime and discover similar recommendations powered by our ML model
-              </p>
-            </div>
-
-            <div className="max-w-2xl mx-auto mb-12">
-              <div className="card-dark rounded-lg p-6 lg:p-8 transition-all duration-300 hover:shadow-2xl">
-                <div className="space-y-6">
-                  <ErrorBoundary componentName="Search Input">
-                    <SearchInput
-                      value={animeName}
-                      onChange={setAnimeName}
-                      onSubmit={handleSearch}
-                      isLoading={isLoading}
-                    />
-                  </ErrorBoundary>
-
-                  <ErrorBoundary componentName="Media Type Toggle">
-                    <MediaTypeToggle
-                      selected={mediaType}
-                      onChange={setMediaType}
-                    />
-                  </ErrorBoundary>
-
-                  <ErrorBoundary componentName="Search Button">
-                    <SearchButton
-                      onClick={handleSearch}
-                      isLoading={isLoading}
-                      disabled={!animeName.trim()}
-                    />
-                  </ErrorBoundary>
-                </div>
-              </div>
-            </div>
-
-            {/* Results */}
-            <div 
-              className="transition-all duration-500 ease-in-out"
-              aria-live="polite"
-              aria-atomic="false"
-            >
-              <ErrorBoundary componentName="Search Results">
-                <AnimationErrorBoundary componentName="Search Results">
-                  <SearchedAnime 
-                    searchedAnime={searchedAnime} 
-                    onClearSearch={handleClearSearch}
-                  />
-                  <ResultsGrid 
-                    similarAnimes={similarAnimes} 
-                    searchedAnime={searchedAnime}
-                    onClearSearch={handleClearSearch}
-                  />
-                </AnimationErrorBoundary>
-              </ErrorBoundary>
-            </div>
-          </div>
-        </section>
+        <ErrorBoundary componentName="Live Search Section">
+          <AnimationErrorBoundary componentName="Live Search">
+            <LiveSearchSection />
+          </AnimationErrorBoundary>
+        </ErrorBoundary>
 
         {/* Tech Stack Section */}
         <ErrorBoundary componentName="Tech Stack Section">
