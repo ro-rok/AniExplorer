@@ -22,6 +22,7 @@ import SearchButton from './components/search/SearchButton'
 import SearchedAnime from './components/results/SearchedAnime'
 import ResultsGrid from './components/results/ResultsGrid'
 import ModelShowcase from './components/model/ModelShowcase'
+import { EmbeddingNetwork } from './components/embedding'
 
 function App() {
   const [animeName, setAnimeName] = useState('')
@@ -135,22 +136,29 @@ function App() {
           </AnimationErrorBoundary>
         </ErrorBoundary>
 
-        {/* Interactive Demo Section - Placeholder for future implementation */}
+        {/* Interactive Demo Section */}
         <section 
           id="interactive-demo" 
           className="min-h-screen flex items-center justify-center py-20 px-4 bg-true-black"
           aria-labelledby="interactive-demo-heading"
         >
-          <div className="container mx-auto max-w-6xl">
+          <div className="container mx-auto max-w-7xl">
             <h2 
               id="interactive-demo-heading"
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-off-white mb-12 text-center"
             >
-              Interactive Demo
+              Interactive Embedding Demo
             </h2>
-            <p className="text-lg md:text-xl text-slate-300 text-center">
-              Interactive embedding visualization coming soon...
+            <p className="text-lg md:text-xl text-slate-300 text-center mb-12 max-w-3xl mx-auto">
+              Explore how genre weights affect anime recommendations in real-time. 
+              Adjust the sliders to see the embedding vector, similarity scores, and recommendations update instantly.
             </p>
+            
+            <ErrorBoundary componentName="Embedding Network">
+              <AnimationErrorBoundary componentName="Embedding Network">
+                <EmbeddingNetwork />
+              </AnimationErrorBoundary>
+            </ErrorBoundary>
           </div>
         </section>
 
