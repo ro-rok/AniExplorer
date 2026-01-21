@@ -12,8 +12,8 @@ const RecommendationList = ({ recommendations, maxItems = 10, similarityScores =
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <div className="recommendation-list bg-near-black border border-gray-800 rounded-lg p-4">
-      <h3 className="text-off-white text-sm font-semibold mb-3">
+    <div className="recommendation-list bg-near-black border border-gray-800 rounded-lg p-3 sm:p-4">
+      <h3 className="text-off-white text-sm sm:text-base font-semibold mb-2 sm:mb-3">
         Top Recommendations
       </h3>
 
@@ -37,14 +37,14 @@ const RecommendationList = ({ recommendations, maxItems = 10, similarityScores =
                         opacity: { duration: 0.2 },
                       }
                 }
-                className="flex items-center justify-between p-2 bg-gray-900 rounded hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-between p-2 sm:p-3 bg-gray-900 rounded hover:bg-gray-800 transition-colors"
               >
                 {/* Rank and Title */}
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <span className="text-accent-blue font-bold text-sm flex-shrink-0">
+                <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                  <span className="text-accent-blue font-bold text-xs sm:text-sm flex-shrink-0">
                     #{index + 1}
                   </span>
-                  <span className="text-off-white text-sm truncate">
+                  <span className="text-off-white text-xs sm:text-sm truncate">
                     {anime.title}
                   </span>
                 </div>

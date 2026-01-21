@@ -13,12 +13,12 @@ const EmbeddingVector = ({ vector, maxDimensions = 12 }) => {
   const maxValue = Math.max(...displayVector, 0.1); // Avoid division by zero
 
   return (
-    <div className="embedding-vector bg-near-black border border-gray-800 rounded-lg p-4">
-      <h3 className="text-off-white text-sm font-semibold mb-3">
+    <div className="embedding-vector bg-near-black border border-gray-800 rounded-lg p-3 sm:p-4">
+      <h3 className="text-off-white text-sm sm:text-base font-semibold mb-2 sm:mb-3">
         Embedding Vector
       </h3>
       
-      <div className="flex items-end justify-between gap-1 h-32">
+      <div className="flex items-end justify-between gap-1 h-24 sm:h-28 md:h-32">
         {displayVector.map((value, index) => {
           const heightPercent = (value / maxValue) * 100;
           

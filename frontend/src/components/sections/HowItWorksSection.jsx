@@ -56,34 +56,34 @@ const HowItWorksSection = () => {
     <section 
       ref={sectionRef}
       id="how-it-works" 
-      className="min-h-screen flex items-center justify-center py-20 px-4 bg-near-black"
+      className="min-h-screen flex items-center justify-center py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-near-black"
       aria-labelledby="how-it-works-heading"
     >
-      <div className="container mx-auto max-w-6xl">
+      <div className="container mx-auto max-w-6xl lg:max-w-7xl">
         <h2 
           ref={headingRef}
           id="how-it-works-heading"
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-off-white mb-12 text-center"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-off-white mb-8 sm:mb-10 lg:mb-12 text-center"
         >
           How It Works
         </h2>
-        <div className="text-lg md:text-xl text-slate-300 space-y-8">
+        <div className="text-base sm:text-lg md:text-xl text-slate-300 space-y-6 sm:space-y-8">
           <div ref={el => stepsRef.current[0] = el} className="text-center">
-            <h3 className="text-2xl md:text-3xl font-semibold text-accent-blue mb-4">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-accent-blue mb-3 sm:mb-4">
               Step 1: Embeddings
             </h3>
             <p>User and anime are represented as 128-dimensional vectors...</p>
           </div>
           
           <div ref={el => stepsRef.current[1] = el} className="text-center">
-            <h3 className="text-2xl md:text-3xl font-semibold text-accent-blue mb-4">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-accent-blue mb-3 sm:mb-4">
               Step 2: Similarity
             </h3>
             <p>Dot product similarity measures how close vectors are...</p>
           </div>
           
           <div ref={el => stepsRef.current[2] = el} className="text-center">
-            <h3 className="text-2xl md:text-3xl font-semibold text-accent-blue mb-4">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-accent-blue mb-3 sm:mb-4">
               Step 3: Genre Weighting
             </h3>
             <p>Multi-hot genre vectors with exponential decay weights...</p>

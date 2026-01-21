@@ -23,6 +23,7 @@ const Button = ({
     px-6 py-3 rounded-lg font-medium transition-all duration-300
     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-near-black
     disabled:opacity-50 disabled:cursor-not-allowed
+    min-h-[44px] min-w-[44px] flex items-center justify-center
   `;
 
   const variants = {

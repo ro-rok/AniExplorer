@@ -83,7 +83,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-slate-300 hover:text-off-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-blue transition-colors duration-200"
+              className="inline-flex items-center justify-center p-2 rounded-md text-slate-300 hover:text-off-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-blue transition-colors duration-200 min-h-[44px] min-w-[44px]"
               aria-expanded="false"
               aria-label="Open main menu"
             >
@@ -115,7 +115,7 @@ const Navbar = () => {
               <a
                 href={`#${item.id}`}
                 onClick={(e) => handleNavClick(e, item.id)}
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 ${
+                className={`block px-3 py-3 rounded-md text-base font-medium transition-all duration-200 min-h-[44px] flex items-center ${
                   activeSection === item.id
                     ? 'bg-accent-blue/20 text-accent-blue'
                     : 'text-slate-300 hover:bg-slate-800 hover:text-off-white'

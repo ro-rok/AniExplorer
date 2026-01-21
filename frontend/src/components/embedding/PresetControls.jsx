@@ -65,7 +65,7 @@ const PresetControls = ({ onPresetSelect, currentWeights }) => {
         Quick Presets
       </h3>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-3">
         {PRESETS.map((preset) => {
           const isActive = isPresetActive(preset);
           
@@ -74,8 +74,9 @@ const PresetControls = ({ onPresetSelect, currentWeights }) => {
               key={preset.name}
               onClick={() => handlePresetClick(preset)}
               className={`
-                px-4 py-2 rounded-lg font-medium text-sm
-                transition-all duration-200
+                px-4 py-3 rounded-lg font-medium text-sm sm:text-base
+                transition-all duration-200 w-full sm:w-auto
+                min-h-[44px] flex items-center justify-center
                 ${
                   isActive
                     ? 'bg-accent-blue text-near-black'
@@ -83,8 +84,8 @@ const PresetControls = ({ onPresetSelect, currentWeights }) => {
                 }
                 focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2 focus:ring-offset-near-black
               `}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               aria-label={`Apply ${preset.name} preset: ${preset.description}`}
               title={preset.description}
             >

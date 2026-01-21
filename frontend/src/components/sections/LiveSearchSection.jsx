@@ -97,7 +97,7 @@ const LiveSearchSection = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 <LoadingSkeleton variant="card" count={8} />
               </div>
             </motion.div>
@@ -166,7 +166,7 @@ const LiveSearchSection = () => {
               <h3 className="text-2xl sm:text-3xl font-bold text-off-white mb-6 text-center">
                 Similar Anime Recommendations
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {results.similar_animes.map((anime, index) => (
                   <AnimeCard
                     key={anime.anime_details.id}

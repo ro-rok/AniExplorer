@@ -11,15 +11,15 @@ const SimilarityMeter = ({ score, maxScore = 1.0, label = 'Similarity Score' }) 
   const displayPercentage = percentage.toFixed(1);
 
   return (
-    <div className="similarity-meter bg-near-black border border-gray-800 rounded-lg p-4">
-      <h3 className="text-off-white text-sm font-semibold mb-3">
+    <div className="similarity-meter bg-near-black border border-gray-800 rounded-lg p-3 sm:p-4">
+      <h3 className="text-off-white text-sm sm:text-base font-semibold mb-2 sm:mb-3">
         {label}
       </h3>
 
       {/* Numeric Score Display */}
       <div className="flex items-baseline justify-between mb-2">
         <motion.span
-          className="text-accent-blue text-3xl font-bold"
+          className="text-accent-blue text-2xl sm:text-3xl font-bold"
           key={displayScore}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -33,7 +33,7 @@ const SimilarityMeter = ({ score, maxScore = 1.0, label = 'Similarity Score' }) 
       </div>
 
       {/* Progress Bar */}
-      <div className="relative w-full h-3 bg-gray-800 rounded-full overflow-hidden">
+      <div className="relative w-full h-2 sm:h-3 bg-gray-800 rounded-full overflow-hidden">
         <motion.div
           className="absolute top-0 left-0 h-full bg-accent-blue rounded-full"
           initial={{ width: 0 }}

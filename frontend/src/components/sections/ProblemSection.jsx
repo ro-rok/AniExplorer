@@ -56,18 +56,18 @@ const ProblemSection = () => {
     <section 
       ref={sectionRef}
       id="problem" 
-      className="min-h-screen flex items-center justify-center py-20 px-4 bg-near-black"
+      className="min-h-screen flex items-center justify-center py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-near-black"
       aria-labelledby="problem-heading"
     >
-      <div className="container mx-auto max-w-4xl">
+      <div className="container mx-auto max-w-4xl lg:max-w-6xl xl:max-w-7xl">
         <h2 
           ref={headingRef}
           id="problem-heading"
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-off-white mb-8 text-center"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-off-white mb-6 sm:mb-8 lg:mb-10 text-center"
         >
           The Problem
         </h2>
-        <div ref={contentRef} className="text-lg md:text-xl text-slate-300 space-y-6">
+        <div ref={contentRef} className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 space-y-4 sm:space-y-6">
           <p className="text-center">
             Finding anime similar to your favorites is challenging...
           </p>

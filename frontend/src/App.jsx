@@ -100,17 +100,17 @@ function App() {
         <LazySection>
           <section 
             id="interactive-demo" 
-            className="min-h-screen flex items-center justify-center py-20 px-4 bg-true-black"
+            className="min-h-screen flex items-center justify-center py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-true-black"
             aria-labelledby="interactive-demo-heading"
           >
             <div className="container mx-auto max-w-7xl">
               <h2 
                 id="interactive-demo-heading"
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-off-white mb-12 text-center"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-off-white mb-8 sm:mb-10 md:mb-12 text-center"
               >
                 Interactive Embedding Demo
               </h2>
-              <p className="text-lg md:text-xl text-slate-300 text-center mb-12 max-w-3xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-slate-300 text-center mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto">
                 Explore how genre weights affect anime recommendations in real-time. 
                 Adjust the sliders to see the embedding vector, similarity scores, and recommendations update instantly.
               </p>

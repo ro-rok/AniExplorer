@@ -79,65 +79,80 @@ const EmbeddingNetwork = ({ initialWeights, mockDataset }) => {
   const topScore = similarityScores.length > 0 ? similarityScores[0].score : 0;
 
   return (
-    <div className="embedding-network w-full max-w-7xl mx-auto p-6">
-      <div className="mb-6">
-        <h2 className="text-off-white text-2xl font-bold mb-2">
+    <div className="embedding-network w-full max-w-7xl mx-auto p-4 sm:p-6">
+      <div className="mb-4 sm:mb-6">
+        <h2 className="text-off-white text-xl sm:text-2xl lg:text-3xl font-bold mb-2">
           Interactive Embedding Network
         </h2>
-        <p className="text-gray-400 text-sm">
+        <p className="text-gray-400 text-xs sm:text-sm">
           Adjust genre weights to see how they affect recommendations in real-time
         </p>
       </div>
 
-      {/* Main Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Main Layout - Stack vertically on mobile, side-by-side on desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Left Column: Visualization */}
-        <div className="space-y-6">
-          {/* Genre Controls with Connections */}
-          <div className="relative bg-true-black border border-gray-800 rounded-lg p-6 min-h-[500px]">
+        <div className="space-y-4 sm:space-y-6">
+          {/* Genre Controls - Simplified for mobile */}
+          <div className="bg-true-black border border-gray-800 rounded-lg p-4 sm:p-6">
             <h3 className="text-off-white text-sm font-semibold mb-4">
               Genre Weights
             </h3>
 
-            {/* Query Anime Indicator */}
-            <div
-              className="absolute bg-accent-purple text-white px-3 py-2 rounded-lg text-xs font-bold"
-              style={{
-                left: queryPosition.x - 40,
-                top: queryPosition.y - 10,
-              }}
-            >
-              Query Anime
+            {/* Mobile: Simple stacked layout without absolute positioning */}
+            <div className="block lg:hidden space-y-3">
+              {genreGroups.map((group) => (
+                <GenreNode
+                  key={group}
+                  genreGroup={group}
+                  weight={genreWeights[group]}
+                  onChange={handleWeightChange}
+                />
+              ))}
             </div>
 
-            {/* Connection Lines */}
-            <ConnectionLines
-              queryPosition={queryPosition}
-              genreNodes={genreNodePositions}
-              weights={genreWeights}
-            />
+            {/* Desktop: Complex visualization with connections */}
+            <div className="hidden lg:block relative min-h-[500px]">
+              {/* Query Anime Indicator */}
+              <div
+                className="absolute bg-accent-purple text-white px-3 py-2 rounded-lg text-xs font-bold"
+                style={{
+                  left: queryPosition.x - 40,
+                  top: queryPosition.y - 10,
+                }}
+              >
+                Query Anime
+              </div>
 
-            {/* Genre Nodes */}
-            <div className="relative">
-              {genreGroups.map((group, index) => {
-                const position = genreNodePositions[index].position;
-                return (
-                  <div
-                    key={group}
-                    className="absolute"
-                    style={{
-                      left: position.x - 80,
-                      top: position.y - 40,
-                    }}
-                  >
-                    <GenreNode
-                      genreGroup={group}
-                      weight={genreWeights[group]}
-                      onChange={handleWeightChange}
-                    />
-                  </div>
-                );
-              })}
+              {/* Connection Lines */}
+              <ConnectionLines
+                queryPosition={queryPosition}
+                genreNodes={genreNodePositions}
+                weights={genreWeights}
+              />
+
+              {/* Genre Nodes */}
+              <div className="relative">
+                {genreGroups.map((group, index) => {
+                  const position = genreNodePositions[index].position;
+                  return (
+                    <div
+                      key={group}
+                      className="absolute"
+                      style={{
+                        left: position.x - 80,
+                        top: position.y - 40,
+                      }}
+                    >
+                      <GenreNode
+                        genreGroup={group}
+                        weight={genreWeights[group]}
+                        onChange={handleWeightChange}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -149,7 +164,7 @@ const EmbeddingNetwork = ({ initialWeights, mockDataset }) => {
         </div>
 
         {/* Right Column: Results */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Embedding Vector */}
           <EmbeddingVector vector={embeddingVector} maxDimensions={12} />
 

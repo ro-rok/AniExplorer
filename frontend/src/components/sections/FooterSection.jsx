@@ -6,30 +6,30 @@ const FooterSection = () => {
   return (
     <footer 
       id="footer" 
-      className="bg-true-black border-t border-slate-800 py-12 px-4"
+      className="bg-true-black border-t border-slate-800 py-8 sm:py-10 md:py-12 px-4 sm:px-6 lg:px-8"
       role="contentinfo"
       aria-label="Site footer"
     >
-      <div className="container mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div className="container mx-auto max-w-6xl lg:max-w-7xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 mb-6 sm:mb-8">
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold text-off-white mb-4">AniExplorer</h3>
-            <p className="text-slate-400">
+            <h3 className="text-xl sm:text-2xl font-bold text-off-white mb-3 sm:mb-4">AniExplorer</h3>
+            <p className="text-sm sm:text-base text-slate-400">
               ML-powered anime recommendations
             </p>
           </div>
 
           {/* Links */}
           <div>
-            <h4 className="text-lg font-semibold text-off-white mb-4">Links</h4>
+            <h4 className="text-base sm:text-lg font-semibold text-off-white mb-3 sm:mb-4">Links</h4>
             <ul className="space-y-2">
               <li>
                 <a 
                   href="https://github.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-accent-blue transition-colors duration-200"
+                  className="text-sm sm:text-base text-slate-400 hover:text-accent-blue transition-colors duration-200 inline-block min-h-[44px] flex items-center"
                 >
                   GitHub
                 </a>
@@ -39,7 +39,7 @@ const FooterSection = () => {
                   href="https://linkedin.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-accent-blue transition-colors duration-200"
+                  className="text-sm sm:text-base text-slate-400 hover:text-accent-blue transition-colors duration-200 inline-block min-h-[44px] flex items-center"
                 >
                   LinkedIn
                 </a>
@@ -47,7 +47,7 @@ const FooterSection = () => {
               <li>
                 <a 
                   href="#" 
-                  className="text-slate-400 hover:text-accent-blue transition-colors duration-200"
+                  className="text-sm sm:text-base text-slate-400 hover:text-accent-blue transition-colors duration-200 inline-block min-h-[44px] flex items-center"
                 >
                   Portfolio
                 </a>
@@ -59,11 +59,11 @@ const FooterSection = () => {
           <div>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="text-slate-400 hover:text-accent-blue transition-colors duration-200 flex items-center space-x-2"
+              className="text-sm sm:text-base text-slate-400 hover:text-accent-blue transition-colors duration-200 flex items-center space-x-2 min-h-[44px]"
               aria-label="Back to top"
             >
               <svg 
-                className="w-5 h-5" 
+                className="w-4 h-4 sm:w-5 sm:h-5" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -82,8 +82,8 @@ const FooterSection = () => {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-slate-800 pt-8 text-center">
-          <p className="text-slate-500">
+        <div className="border-t border-slate-800 pt-6 sm:pt-8 text-center">
+          <p className="text-xs sm:text-sm text-slate-500">
             © {new Date().getFullYear()} AniExplorer. All rights reserved.
           </p>
         </div>
