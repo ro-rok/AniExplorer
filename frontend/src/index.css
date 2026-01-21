@@ -100,6 +100,28 @@
 }
 
 @layer utilities {
+  /* Performance optimization - GPU acceleration hints */
+  /* Requirements: 8.4, 8.7 */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .gpu-accelerated-opacity {
+    transform: translateZ(0);
+    will-change: opacity;
+  }
+
+  .gpu-accelerated-all {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+  }
+
+  /* Remove will-change after animation completes to free resources */
+  .animation-complete {
+    will-change: auto;
+  }
+
   /* Reduced motion support */
   @media (prefers-reduced-motion: reduce) {
     *,

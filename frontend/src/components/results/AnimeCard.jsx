@@ -1,40 +1,53 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import OptimizedImage from '../common/OptimizedImage'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
 
+/**
+ * AnimeCard Component - Displays anime details with hover animations
+ * Validates Requirements: 6.5, 8.2, 8.8
+ */
 const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
 
-  const cardVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 30,
-      scale: 0.9
-    },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        delay: index * 0.1,
-        ease: [0.25, 0.46, 0.45, 0.94]
+  const cardVariants = prefersReducedMotion
+    ? {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: 0.01 } }
       }
-    }
-  }
+    : {
+        hidden: { 
+          opacity: 0, 
+          y: 30,
+          scale: 0.9
+        },
+        visible: { 
+          opacity: 1, 
+          y: 0,
+          scale: 1,
+          transition: {
+            duration: 0.6,
+            delay: index * 0.1,
+            ease: [0.25, 0.46, 0.45, 0.94]
+          }
+        }
+      }
 
-  const hoverVariants = {
-    hover: {
-      y: -12,
-      scale: 1.03,
-      rotateY: 2,
-      transition: {
-        duration: 0.4,
-        ease: [0.25, 0.46, 0.45, 0.94]
+  const hoverVariants = prefersReducedMotion
+    ? {}
+    : {
+        hover: {
+          y: -12,
+          scale: 1.03,
+          rotateY: 2,
+          transition: {
+            duration: 0.4,
+            ease: [0.25, 0.46, 0.45, 0.94]
+          }
+        }
       }
-    }
-  }
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded)
@@ -57,7 +70,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
       variants={cardVariants}
       initial="hidden"
       animate="visible"
-      whileHover="hover"
+      whileHover={prefersReducedMotion ? undefined : "hover"}
       onHoverStart={handleHoverStart}
       onHoverEnd={handleHoverEnd}
       custom={index}
@@ -87,7 +100,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
         {similarity !== undefined && (
           <motion.div 
             className="absolute top-4 right-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-2 rounded-full text-sm font-bold shadow-lg backdrop-blur-sm z-10"
-            animate={{ 
+            animate={prefersReducedMotion ? {} : { 
               scale: isHovered ? 1.1 : 1,
               rotate: isHovered ? 5 : 0
             }}
@@ -111,7 +124,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
           <motion.h3 
             id={`anime-title-${anime.anime_details.id}`}
             className={`font-bold mb-3 text-white leading-tight ${isSearchedVariant ? 'text-2xl' : 'text-xl'}`}
-            whileHover={{ 
+            whileHover={prefersReducedMotion ? {} : { 
               color: '#60a5fa',
               scale: 1.02
             }}
@@ -128,7 +141,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
               {anime.anime_details.mean && (
                 <motion.div 
                   className="flex items-center space-x-1 bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-sm font-semibold"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                   transition={{ duration: 0.2 }}
                 >
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -163,7 +176,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
                   height: isExpanded ? 'auto' : 'auto',
                   opacity: 1 
                 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: prefersReducedMotion ? 0.01 : 0.3 }}
               >
                 {anime.anime_details.synopsis}
               </motion.p>
@@ -172,14 +185,14 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
                 <motion.button
                   onClick={toggleExpanded}
                   className="text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors duration-200 flex items-center space-x-1"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                  whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
                 >
                   <span>{isExpanded ? 'Show less' : 'Read more'}</span>
                   <motion.svg 
                     className="w-4 h-4"
                     animate={{ rotate: isExpanded ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: prefersReducedMotion ? 0.01 : 0.2 }}
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -199,7 +212,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
                   <motion.span
                     key={genre.id}
                     className="text-xs bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 px-3 py-1 rounded-full border border-blue-500/30 font-medium"
-                    whileHover={{ 
+                    whileHover={prefersReducedMotion ? {} : { 
                       scale: 1.05,
                       backgroundColor: 'rgba(59, 130, 246, 0.3)'
                     }}
@@ -212,7 +225,7 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
                   <motion.button
                     onClick={toggleExpanded}
                     className="text-xs text-slate-400 hover:text-slate-300 px-3 py-1 rounded-full border border-slate-600 hover:border-slate-500 transition-colors duration-200"
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
                   >
                     +{anime.anime_details.genres.length - 3} more
                   </motion.button>
@@ -227,11 +240,11 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
             target="_blank"
             rel="noopener noreferrer"
             className={`inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl ${isSearchedVariant ? 'w-full' : ''}`}
-            whileHover={{ 
+            whileHover={prefersReducedMotion ? {} : { 
               scale: 1.02,
               y: -2
             }}
-            whileTap={{ scale: 0.98 }}
+            whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
             transition={{ duration: 0.2 }}
             aria-label={`View ${anime.anime_details.title} on MyAnimeList`}
           >

@@ -5,7 +5,8 @@ import { preloadCriticalImages } from './utils/imagePreloader'
 import { 
   ErrorBoundary, 
   AnimationErrorBoundary, 
-  Navbar 
+  Navbar,
+  LazySection
 } from './components/common'
 import HeroSection from './components/hero/HeroSection'
 import {
@@ -61,96 +62,112 @@ function App() {
 
       {/* Main Content */}
       <main id="main-content" role="main">
-        {/* Hero Section */}
+        {/* Hero Section - Above the fold, load immediately */}
         <ErrorBoundary componentName="Hero Section">
           <AnimationErrorBoundary componentName="Hero">
             <HeroSection />
           </AnimationErrorBoundary>
         </ErrorBoundary>
 
-        {/* Problem Section */}
-        <ErrorBoundary componentName="Problem Section">
-          <AnimationErrorBoundary componentName="Problem">
-            <ProblemSection />
-          </AnimationErrorBoundary>
-        </ErrorBoundary>
-
-        {/* Solution Section */}
-        <ErrorBoundary componentName="Solution Section">
-          <AnimationErrorBoundary componentName="Solution">
-            <SolutionSection />
-          </AnimationErrorBoundary>
-        </ErrorBoundary>
-
-        {/* How It Works Section */}
-        <ErrorBoundary componentName="How It Works Section">
-          <AnimationErrorBoundary componentName="How It Works">
-            <HowItWorksSection />
-          </AnimationErrorBoundary>
-        </ErrorBoundary>
-
-        {/* Interactive Demo Section */}
-        <section 
-          id="interactive-demo" 
-          className="min-h-screen flex items-center justify-center py-20 px-4 bg-true-black"
-          aria-labelledby="interactive-demo-heading"
-        >
-          <div className="container mx-auto max-w-7xl">
-            <h2 
-              id="interactive-demo-heading"
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-off-white mb-12 text-center"
-            >
-              Interactive Embedding Demo
-            </h2>
-            <p className="text-lg md:text-xl text-slate-300 text-center mb-12 max-w-3xl mx-auto">
-              Explore how genre weights affect anime recommendations in real-time. 
-              Adjust the sliders to see the embedding vector, similarity scores, and recommendations update instantly.
-            </p>
-            
-            <ErrorBoundary componentName="Embedding Network">
-              <AnimationErrorBoundary componentName="Embedding Network">
-                <EmbeddingNetwork />
-              </AnimationErrorBoundary>
-            </ErrorBoundary>
-          </div>
-        </section>
-
-        {/* Live Search Section */}
-        <ErrorBoundary componentName="Live Search Section">
-          <AnimationErrorBoundary componentName="Live Search">
-            <LiveSearchSection />
-          </AnimationErrorBoundary>
-        </ErrorBoundary>
-
-        {/* Tech Stack Section */}
-        <ErrorBoundary componentName="Tech Stack Section">
-          <AnimationErrorBoundary componentName="Tech Stack">
-            <TechStackSection />
-          </AnimationErrorBoundary>
-        </ErrorBoundary>
-
-        {/* Results Section */}
-        <ErrorBoundary componentName="Results Section">
-          <AnimationErrorBoundary componentName="Results">
-            <ResultsSection />
-          </AnimationErrorBoundary>
-        </ErrorBoundary>
-
-        {/* Model Showcase Section - Keeping existing implementation */}
-        <section 
-          className="transition-all duration-1000 ease-in-out"
-          aria-labelledby="model-showcase-heading"
-        >
-          <h2 id="model-showcase-heading" className="sr-only">
-            AI Model Information
-          </h2>
-          
-          <ErrorBoundary componentName="Model Showcase">
-            <AnimationErrorBoundary componentName="Model Showcase">
-              <ModelShowcase />
+        {/* Problem Section - Lazy load */}
+        <LazySection>
+          <ErrorBoundary componentName="Problem Section">
+            <AnimationErrorBoundary componentName="Problem">
+              <ProblemSection />
             </AnimationErrorBoundary>
           </ErrorBoundary>
-        </section>
+        </LazySection>
+
+        {/* Solution Section - Lazy load */}
+        <LazySection>
+          <ErrorBoundary componentName="Solution Section">
+            <AnimationErrorBoundary componentName="Solution">
+              <SolutionSection />
+            </AnimationErrorBoundary>
+          </ErrorBoundary>
+        </LazySection>
+
+        {/* How It Works Section - Lazy load */}
+        <LazySection>
+          <ErrorBoundary componentName="How It Works Section">
+            <AnimationErrorBoundary componentName="How It Works">
+              <HowItWorksSection />
+            </AnimationErrorBoundary>
+          </ErrorBoundary>
+        </LazySection>
+
+        {/* Interactive Demo Section - Lazy load */}
+        <LazySection>
+          <section 
+            id="interactive-demo" 
+            className="min-h-screen flex items-center justify-center py-20 px-4 bg-true-black"
+            aria-labelledby="interactive-demo-heading"
+          >
+            <div className="container mx-auto max-w-7xl">
+              <h2 
+                id="interactive-demo-heading"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-off-white mb-12 text-center"
+              >
+                Interactive Embedding Demo
+              </h2>
+              <p className="text-lg md:text-xl text-slate-300 text-center mb-12 max-w-3xl mx-auto">
+                Explore how genre weights affect anime recommendations in real-time. 
+                Adjust the sliders to see the embedding vector, similarity scores, and recommendations update instantly.
+              </p>
+              
+              <ErrorBoundary componentName="Embedding Network">
+                <AnimationErrorBoundary componentName="Embedding Network">
+                  <EmbeddingNetwork />
+                </AnimationErrorBoundary>
+              </ErrorBoundary>
+            </div>
+          </section>
+        </LazySection>
+
+        {/* Live Search Section - Lazy load */}
+        <LazySection>
+          <ErrorBoundary componentName="Live Search Section">
+            <AnimationErrorBoundary componentName="Live Search">
+              <LiveSearchSection />
+            </AnimationErrorBoundary>
+          </ErrorBoundary>
+        </LazySection>
+
+        {/* Tech Stack Section - Lazy load */}
+        <LazySection>
+          <ErrorBoundary componentName="Tech Stack Section">
+            <AnimationErrorBoundary componentName="Tech Stack">
+              <TechStackSection />
+            </AnimationErrorBoundary>
+          </ErrorBoundary>
+        </LazySection>
+
+        {/* Results Section - Lazy load */}
+        <LazySection>
+          <ErrorBoundary componentName="Results Section">
+            <AnimationErrorBoundary componentName="Results">
+              <ResultsSection />
+            </AnimationErrorBoundary>
+          </ErrorBoundary>
+        </LazySection>
+
+        {/* Model Showcase Section - Lazy load */}
+        <LazySection>
+          <section 
+            className="transition-all duration-1000 ease-in-out"
+            aria-labelledby="model-showcase-heading"
+          >
+            <h2 id="model-showcase-heading" className="sr-only">
+              AI Model Information
+            </h2>
+            
+            <ErrorBoundary componentName="Model Showcase">
+              <AnimationErrorBoundary componentName="Model Showcase">
+                <ModelShowcase />
+              </AnimationErrorBoundary>
+            </ErrorBoundary>
+          </section>
+        </LazySection>
       </main>
 
       {/* Footer Section */}

@@ -1,12 +1,15 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 /**
  * RecommendationList Component
  * Displays top recommendations with animated reordering
+ * Validates Requirements: 5.6, 8.2, 8.8
  */
 const RecommendationList = ({ recommendations, maxItems = 10, similarityScores = {} }) => {
   const displayRecommendations = recommendations.slice(0, maxItems);
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <div className="recommendation-list bg-near-black border border-gray-800 rounded-lg p-4">
@@ -22,14 +25,18 @@ const RecommendationList = ({ recommendations, maxItems = 10, similarityScores =
             return (
               <motion.div
                 key={anime.id}
-                layout
-                initial={{ opacity: 0, x: -20 }}
+                layout={!prefersReducedMotion}
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                transition={{
-                  layout: { duration: 0.4, ease: 'easeInOut' },
-                  opacity: { duration: 0.2 },
-                }}
+                exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 20 }}
+                transition={
+                  prefersReducedMotion
+                    ? { duration: 0.01 }
+                    : {
+                        layout: { duration: 0.4, ease: 'easeInOut' },
+                        opacity: { duration: 0.2 },
+                      }
+                }
                 className="flex items-center justify-between p-2 bg-gray-900 rounded hover:bg-gray-800 transition-colors"
               >
                 {/* Rank and Title */}
@@ -48,7 +55,7 @@ const RecommendationList = ({ recommendations, maxItems = 10, similarityScores =
                   key={`${anime.id}-${score}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: prefersReducedMotion ? 0.01 : 0.3 }}
                 >
                   {score.toFixed(3)}
                 </motion.span>

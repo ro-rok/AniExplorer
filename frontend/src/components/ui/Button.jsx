@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { motion } from 'framer-motion';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 /**
  * Button component with multiple variants and focus indicators
  * Supports primary, secondary, and ghost variants
- * Validates Requirements: 7.3
+ * Validates Requirements: 7.3, 8.2, 8.8
  */
 const Button = ({ 
   children, 
@@ -15,11 +17,12 @@ const Button = ({
   className = '',
   ...props 
 }) => {
+  const prefersReducedMotion = useReducedMotion();
+
   const baseStyles = `
     px-6 py-3 rounded-lg font-medium transition-all duration-300
     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-near-black
     disabled:opacity-50 disabled:cursor-not-allowed
-    transform hover:scale-105 active:scale-95
   `;
 
   const variants = {
@@ -42,16 +45,26 @@ const Button = ({
 
   const variantStyles = variants[variant] || variants.primary;
 
+  // Animation variants
+  const animationVariants = prefersReducedMotion
+    ? {}
+    : {
+        whileHover: { scale: 1.05 },
+        whileTap: { scale: 0.95 },
+        transition: { duration: 0.2, ease: 'easeInOut' },
+      };
+
   return (
-    <button
+    <motion.button
       type={type}
       onClick={onClick}
       disabled={disabled}
       className={`${baseStyles} ${variantStyles} ${className}`.trim()}
+      {...animationVariants}
       {...props}
     >
       {children}
-    </button>
+    </motion.button>
   );
 };
 
