@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useLenis } from './hooks'
 import { preloadCriticalImages } from './utils/imagePreloader'
+import { pingAniExplorer } from './utils/api'
 import { 
   ErrorBoundary, 
   AnimationErrorBoundary, 
@@ -32,6 +33,16 @@ function App() {
     fetch('http://127.0.0.1:5000/')
       .catch(() => {
         // Silently handle the wake-up call
+      })
+
+    // Ping AniExplorer service to wake it up
+    pingAniExplorer()
+      .then((response) => {
+        console.log('AniExplorer service is alive:', response.message)
+      })
+      .catch((error) => {
+        // Silently handle the ping - service might not be running
+        console.warn('AniExplorer service ping failed:', error.message)
       })
   }, [])
 
