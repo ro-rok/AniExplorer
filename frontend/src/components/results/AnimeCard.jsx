@@ -63,6 +63,9 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
 
   const isSearchedVariant = variant === 'searched'
   const cardWidth = isSearchedVariant ? 'max-w-sm sm:max-w-md mx-auto w-full' : 'w-full'
+  const malUrl = anime?.anime_details?.id
+    ? `https://myanimelist.net/anime/${anime.anime_details.id}`
+    : null
 
   return (
     <motion.div
@@ -235,24 +238,25 @@ const AnimeCard = ({ anime, similarity, index, variant = 'similar' }) => {
           )}
 
           {/* Enhanced action button */}
-          <motion.a
-            href={`https://myanimelist.net/anime/${anime.anime_details.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl ${isSearchedVariant ? 'w-full' : ''}`}
-            whileHover={prefersReducedMotion ? {} : { 
-              scale: 1.02,
-              y: -2
-            }}
-            whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
-            transition={{ duration: 0.2 }}
-            aria-label={`View ${anime.anime_details.title} on MyAnimeList`}
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            <span>{isSearchedVariant ? 'View on MyAnimeList' : 'View Details'}</span>
-          </motion.a>
+          {malUrl && (
+            <motion.button
+              type="button"
+              onClick={() => window.open(malUrl, '_blank', 'noopener,noreferrer')}
+              className={`inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl ${isSearchedVariant ? 'w-full' : ''}`}
+              whileHover={prefersReducedMotion ? {} : { 
+                scale: 1.02,
+                y: -2
+              }}
+              whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              aria-label={`View ${anime.anime_details.title} on MyAnimeList`}
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              <span>View on MyAnimeList</span>
+            </motion.button>
+          )}
         </div>
       </motion.div>
     </motion.div>
