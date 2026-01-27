@@ -22,12 +22,15 @@ const MediaTypeToggle = ({ selected, onChange }) => {
 
   return (
     <fieldset className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-      <legend className="text-sm sm:text-base font-medium text-slate-300">
+      <legend
+        id="media-type-legend"
+        className="text-sm sm:text-base font-medium text-slate-300"
+      >
         Media Type:
       </legend>
       
       <div 
-        className="relative flex bg-slate-700 rounded-lg p-1 w-full sm:w-auto"
+        className="relative flex bg-slate-800/80 border border-slate-700 rounded-xl p-1 w-full sm:w-auto shadow-soft"
         role="radiogroup"
         aria-labelledby="media-type-legend"
       >
@@ -53,12 +56,12 @@ const MediaTypeToggle = ({ selected, onChange }) => {
             onClick={() => onChange(option.value)}
             onKeyDown={(e) => handleKeyDown(e, option.value)}
             className={`
-              relative z-10 px-3 sm:px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200
-              flex items-center justify-center space-x-1 sm:space-x-2 flex-1 sm:flex-none sm:min-w-[100px]
-              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-700
+              relative z-10 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors duration-200
+              flex items-center justify-center gap-1 sm:gap-2 flex-1 sm:flex-none sm:min-w-[120px]
+              focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900
               ${selected === option.value
                 ? 'text-white'
-                : 'text-slate-300 hover:text-white'
+                : 'text-slate-200 hover:text-white'
               }
             `}
             whileHover={{ scale: 1.05 }}

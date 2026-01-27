@@ -99,11 +99,7 @@ const LiveSearchSection = () => {
 
         {/* Search Controls */}
         <motion.div
-          className={`max-w-2xl mx-auto mb-12 space-y-6 transition-all duration-300 ${
-            results 
-              ? 'sticky top-20 z-40 bg-near-black/95 backdrop-blur-md border-b border-slate-800/50 pb-6 pt-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 rounded-b-lg shadow-lg' 
-              : ''
-          }`}
+          className="max-w-2xl mx-auto mb-12 space-y-6 transition-all duration-300"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
